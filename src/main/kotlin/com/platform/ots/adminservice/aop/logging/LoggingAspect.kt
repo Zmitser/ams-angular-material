@@ -33,19 +33,23 @@ class LoggingAspect {
     @Around("applicationPackagePointCut()")
     @Throws(Throwable::class)
     fun logAround(proceedingJoinPoint: ProceedingJoinPoint): Any {
-        log.debug {
-            """
-               Enter: ${proceedingJoinPoint.signature.declaringTypeName}.${proceedingJoinPoint.signature.name}()
-               with argument[s] = ${proceedingJoinPoint.args}
-            """
+        if (log.isDebugEnabled) {
+            log.debug {
+                """
+                    Enter: ${proceedingJoinPoint.signature.declaringTypeName}.${proceedingJoinPoint.signature.name}()
+                    with argument[s] = ${proceedingJoinPoint.args}
+               """
+            }
         }
         try {
             val proceed: Any = proceedingJoinPoint.proceed()
-            log.debug {
-                """
-                   Exit: ${proceedingJoinPoint.signature.declaringTypeName}.${proceedingJoinPoint.signature.name}()
-                   with result = $proceed
-                """
+            if (log.isDebugEnabled) {
+                log.debug {
+                    """
+                        Exit: ${proceedingJoinPoint.signature.declaringTypeName}.${proceedingJoinPoint.signature.name}()
+                        with result = $proceed
+                    """
+                }
             }
             return proceed
         } catch (e: IllegalArgumentException) {

@@ -52,6 +52,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-aop")
 	compile("org.springframework.boot:spring-boot-starter-logging")
 	compile("io.github.microutils:kotlin-logging:1.4.9")
+	compile("io.github.benas:random-beans:3.7.0")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
 }

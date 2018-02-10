@@ -1,0 +1,20 @@
+package com.platform.ots.adminservice.bootstrap
+
+import com.platform.ots.adminservice.domain.User
+import com.platform.ots.adminservice.repository.UserRepository
+import io.github.benas.randombeans.api.EnhancedRandom.random
+import org.springframework.boot.CommandLineRunner
+import org.springframework.stereotype.Component
+import reactor.core.publisher.toFlux
+
+@Component
+class BootstrapCLR(val userRepository: UserRepository) : CommandLineRunner {
+
+    override fun run(vararg args: String?) {
+        userRepository.deleteAll()
+                .thenMany(arrayOf(random(User::class.java), random(User::class.java))
+                        .toFlux()
+                        .flatMap { userRepository.save(it) }
+                ).subscribe()
+    }
+}
