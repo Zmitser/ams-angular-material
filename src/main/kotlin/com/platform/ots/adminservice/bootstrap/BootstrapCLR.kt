@@ -12,7 +12,10 @@ class BootstrapCLR(val userRepository: UserRepository) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
         userRepository.deleteAll()
-                .thenMany(arrayOf(random(User::class.java), random(User::class.java))
+                .thenMany(arrayOf(
+                        random(User::class.java),
+                        random(User::class.java),
+                        random(User::class.java))
                         .toFlux()
                         .flatMap { userRepository.save(it) }
                 ).subscribe()
