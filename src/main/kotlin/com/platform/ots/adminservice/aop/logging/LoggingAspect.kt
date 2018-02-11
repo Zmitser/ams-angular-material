@@ -1,5 +1,6 @@
 package com.platform.ots.adminservice.aop.logging
 
+import com.platform.ots.adminservice.constant.Constant
 import mu.KotlinLogging
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
@@ -8,26 +9,46 @@ import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.env.Environment
 
 @Aspect
 @Configuration
-class LoggingAspect {
+class LoggingAspect(val environment: Environment) {
 
     private val log = KotlinLogging.logger {}
 
-    @Pointcut("within(com.platform.ots.adminservice.handler..*) || within(com.platform.ots.adminservice.router..*)")
+    @Pointcut("within(com.platform.ots.adminservice.handler..*) || " +
+            "within(com.platform.ots.adminservice.router..*) || " +
+            "within(com.platform.ots.adminservice.repository..*) " +
+            "within(com.platform.ots.adminservice.service..*)")
     fun applicationPackagePointCut() {
     }
 
 
+    /**
+     * Advice that logs method after exception
+     *
+     * @param joinPoint joint point for advice
+     * @param throwable exception
+     */
     @AfterThrowing(pointcut = "applicationPackagePointCut()", throwing = "throwable")
     fun logAfterThrowing(joinPoint: JoinPoint, throwable: Throwable) {
-        log.error(throwable) {
-            """
-               Exception in ${joinPoint.signature.declaringTypeName}.${joinPoint.signature.name}()
-               with cause = '${throwable.cause}' and exception = '${throwable.message}'
-            """
+        if (environment.acceptsProfiles(Constant.SPRING_PROFILE_DEVELOPMENT)) {
+            log.error(throwable) {
+                """
+                    Exception in ${joinPoint.signature.declaringTypeName}.${joinPoint.signature.name}()
+                    with cause = '${throwable.cause}' and exception = '${throwable.message}'
+                """
+            }
+        } else {
+            log.error {
+                """
+                    Exception in ${joinPoint.signature.declaringTypeName}.${joinPoint.signature.name}()
+                    with cause = '${throwable.cause}'
+                """
+            }
         }
+
     }
 
     @Around("applicationPackagePointCut()")

@@ -3,3 +3,17 @@ server:
 spring:
   profiles:
     active: dev
+  h2:
+    console:
+      enabled: true
+      path: /console
+  jackson:
+        serialization.indent_output: true
+  datasource:
+    url: jdbc:h2:file:./build/h2db/db/ams;DB_CLOSE_DELAY=-1
+    username: ams
+    password:
+  jpa:
+    database: h2
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    show-sql: true

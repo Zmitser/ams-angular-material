@@ -5,6 +5,7 @@ object Constant {
     const val EXPIRES: String = "Expires"
     const val PRAGMA: String = "Pragma"
     const val CACHE: String = "cache"
+    const val NO_CACHE: String = "no-cache"
     const val CACHE_CONTROL: String = "Cache-control"
     const val SPRING_DEFAULT_PROFILE: String = "spring.profiles.default"
     const val SPRING_PROFILE_DEVELOPMENT: String = "dev"
