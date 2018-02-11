@@ -1,6 +1,6 @@
 package com.platform.ots.adminservice.handler
 
-import com.platform.ots.adminservice.repository.UserRepository
+import com.platform.ots.adminservice.service.UserService
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.server.body
 import reactor.core.publisher.Mono
 
 @Component
-class UserHandler(val userRepository: UserRepository) {
+class UserHandler(val userService: UserService) {
 
-    fun findAll(request: ServerRequest): Mono<ServerResponse> = ok().body(userRepository.findAll())
+    fun findAll(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.findAll())
 }
