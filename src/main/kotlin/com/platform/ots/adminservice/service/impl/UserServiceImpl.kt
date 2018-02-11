@@ -10,5 +10,5 @@ import reactor.core.publisher.Flux
 @Service
 class UserServiceImpl(val userRepository: UserRepository, val userMapper: UserMapper) : UserService {
 
-    override fun findAll(): Flux<UserDto> = userRepository.findAll().map { userMapper.userToUserDtoConverter(it) }
+    override fun findAll(): Flux<UserDto> = userRepository.findAll().map { userMapper.userToUserDto(it) }
 }

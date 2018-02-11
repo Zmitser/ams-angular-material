@@ -13,7 +13,14 @@ buildscript {
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
 	}
+
+
 }
+plugins {
+	id 'net.ltgt.apt' version '0.8'
+	id "org.jetbrains.kotlin.kapt" version "1.2.21"
+}
+
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
@@ -53,6 +60,8 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-logging")
 	compile("io.github.microutils:kotlin-logging:1.4.9")
 	compile("io.github.benas:random-beans:3.7.0")
+	compile("org.mapstruct:mapstruct-jdk8:1.2.0.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.2.0.Final")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
 }
