@@ -1,28 +1,38 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CommonModule} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-
+import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {UsersComponent} from './users/users.component';
-import {UserService} from "./shared/services/user.service";
-import {HttpClientModule} from "@angular/common/http";
+import {AuthGuard, UserService} from './shared';
+import {UserServiceEffects} from "./effects/user-service-effects";
+import {EffectsModule} from "@ngrx/effects";
 import {StoreModule} from "@ngrx/store";
 import {reducers} from "./reducers/index";
 import {INITIAL_APPLICATION_STATE} from "./store/appication-state";
-import {EffectsModule} from "@ngrx/effects";
-import {UserServiceEffects} from "./effects/user-service-effects";
 
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        UsersComponent
-    ],
     imports: [
+        CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
-        NgbModule.forRoot(),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient]
+            }
+        }),
+        AppRoutingModule,
         StoreModule.forRoot(reducers, {
             initialState: INITIAL_APPLICATION_STATE
         }),
@@ -30,7 +40,8 @@ import {UserServiceEffects} from "./effects/user-service-effects";
             UserServiceEffects
         ])
     ],
-    providers: [UserService],
+    declarations: [AppComponent],
+    providers: [AuthGuard, UserService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
