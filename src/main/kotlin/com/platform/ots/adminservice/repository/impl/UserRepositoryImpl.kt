@@ -11,6 +11,8 @@ import reactor.core.publisher.toMono
 @Repository
 class UserRepositoryImpl(val proxyUserRepository: ProxyUserRepository) : UserRepository {
 
+    override fun delete(id: Long): Mono<Long> = id.toMono().doOnSuccess { proxyUserRepository.deleteById(id) }
+
     override fun save(user: User): Mono<User> = proxyUserRepository.save(user).toMono()
 
     override fun deleteAll(): Mono<Unit> = proxyUserRepository.deleteAll().toMono()

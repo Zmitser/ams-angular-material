@@ -12,7 +12,7 @@ import javax.validation.constraints.Size
 data class User(
         @Id
         @GeneratedValue(strategy = IDENTITY)
-        val id: Int?,
+        val id: Long?,
         @NotNull
         @Size(max = 60, min = 2)
         @Column(name = "first_name", length = 60)

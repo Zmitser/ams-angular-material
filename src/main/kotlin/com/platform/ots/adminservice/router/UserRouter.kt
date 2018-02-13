@@ -13,6 +13,7 @@ class UserRouter(val userHandler: UserHandler) {
     fun apis() = router {
         (accept(APPLICATION_JSON) and "/api/v1/users").nest {
             GET("", userHandler::findAll)
+            DELETE("/{id}", userHandler::delete)
         }
     }
 }

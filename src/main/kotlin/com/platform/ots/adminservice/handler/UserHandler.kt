@@ -12,4 +12,6 @@ import reactor.core.publisher.Mono
 class UserHandler(val userService: UserService) {
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.findAll())
+
+    fun delete(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.delete(request.pathVariable("id").toLong()))
 }

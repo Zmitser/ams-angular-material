@@ -11,4 +11,6 @@ interface UserRepository {
     fun deleteAll(): Mono<Unit>
 
     fun save(user: User): Mono<User>
+
+    fun delete(id: Long): Mono<Long>
 }

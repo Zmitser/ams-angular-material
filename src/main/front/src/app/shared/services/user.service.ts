@@ -14,5 +14,7 @@ export class UserService {
         return this._httpClient.get<User[]>('/api/v1/users')
     }
 
-
+    delete(id: number): Observable<number> {
+        return this._httpClient.delete<number>(`/api/v1/users/${id}`)
+    }
 }

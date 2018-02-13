@@ -3,7 +3,7 @@ package com.platform.ots.adminservice.service.dto
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDateTime
 
-data class UserDto(var id: Int?,
+data class UserDto(var id: Long?,
                    var firstName: String?,
                    var lastName: String?,
                    var userName: String?,

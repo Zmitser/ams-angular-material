@@ -14,6 +14,12 @@ export class UserServiceEffects {
         .switchMap(action => this._userService.findAll())
         .map(data => new UserActions.LoadUsersActionSuccess(data));
 
+    @Effect() user$ = this._action$
+        .ofType(UserActions.DELETE_USER_ACTION)
+        .map((action: UserActions.DeleteUserActionAction) => action.payload)
+        .switchMap(payload => this._userService.delete(payload))
+        .map(data => new UserActions.DeleteUserActionSuccess(data));
+
 
     constructor(private _action$: Actions, private _userService: UserService) {
     }

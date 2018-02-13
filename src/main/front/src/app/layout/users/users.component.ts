@@ -25,4 +25,7 @@ export class UsersComponent implements OnInit {
         this._store.dispatch(new UserActions.LoadUsersAction())
     }
 
+    onDelete(id: number) {
+        this._store.dispatch(new UserActions.DeleteUserActionAction(id))
+    }
 }
