@@ -7,6 +7,7 @@ import {LayoutRoutingModule} from './layout-routing.module';
 import {LayoutComponent} from './layout.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {HeaderComponent} from './components/header/header.component';
+import {UserMgmtDeleteDialogComponent} from "./users/user-delete-dialog.component";
 
 @NgModule({
     imports: [
@@ -15,7 +16,16 @@ import {HeaderComponent} from './components/header/header.component';
         TranslateModule,
         NgbModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
+    declarations: [
+        LayoutComponent,
+        SidebarComponent,
+        HeaderComponent,
+        UserMgmtDeleteDialogComponent,
+    ],
+    entryComponents: [
+        UserMgmtDeleteDialogComponent
+    ],
+
 })
 export class LayoutModule {
 }

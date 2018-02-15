@@ -9,4 +9,8 @@ interface UserService {
     fun findAll(): Flux<UserDto>
 
     fun delete(id: Long): Mono<Long>
+
+    fun save(userDto: UserDto): Mono<UserDto>
+
+    fun findOne(id: Long): Mono<UserDto>
 }

@@ -14,6 +14,8 @@ class UserRouter(val userHandler: UserHandler) {
         (accept(APPLICATION_JSON) and "/api/v1/users").nest {
             GET("", userHandler::findAll)
             DELETE("/{id}", userHandler::delete)
+            POST("", userHandler::save)
+            GET("/{id}", userHandler::findOne)
         }
     }
 }

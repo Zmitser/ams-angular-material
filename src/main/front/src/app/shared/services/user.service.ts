@@ -17,4 +17,10 @@ export class UserService {
     delete(id: number): Observable<number> {
         return this._httpClient.delete<number>(`/api/v1/users/${id}`)
     }
+
+    findOne(id: number): Observable<User> {
+        return this._httpClient.get<User>(`/api/v1/users/${id}`)
+    }
+
+
 }

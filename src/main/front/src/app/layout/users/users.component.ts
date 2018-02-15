@@ -24,8 +24,4 @@ export class UsersComponent implements OnInit {
     ngOnInit() {
         this._store.dispatch(new UserActions.LoadUsersAction())
     }
-
-    onDelete(id: number) {
-        this._store.dispatch(new UserActions.DeleteUserActionAction(id))
-    }
 }
