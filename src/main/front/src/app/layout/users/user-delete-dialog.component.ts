@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-
-import {User, UserService} from '../../shared';
+import * as UserActions from "../../actions/actions";
+import {User} from '../../shared';
 import {UserModalService} from './user-modal.service';
+import {ApplicationState} from "../../store/appication-state";
+import {Store} from "@ngrx/store";
 
 @Component({
     selector: 'user-mgmt-delete-dialog',
@@ -13,8 +15,8 @@ export class UserMgmtDeleteDialogComponent {
 
     user: User;
 
-    constructor(private userService: UserService,
-                public activeModal: NgbActiveModal,
+    constructor(private _store: Store<ApplicationState>,
+                public _activeModal: NgbActiveModal,
                 private _router: Router,) {
     }
 
@@ -23,7 +25,7 @@ export class UserMgmtDeleteDialogComponent {
             .then(() => {
                 this._router.navigate([".", {outlets: {popup: null}}])
                     .then(() => {
-                        this.activeModal.dismiss('cancel');
+                        this._activeModal.dismiss('cancel');
                     });
             })
     }
@@ -31,8 +33,8 @@ export class UserMgmtDeleteDialogComponent {
     confirmDelete(id: number) {
         this._router.navigate(["../"]).then(() => {
             this._router.navigate([".", {outlets: {popup: null}}]).then(() => {
-                console.log(id);
-                this.activeModal.dismiss(true);
+                this._store.dispatch(new UserActions.DeleteUserActionAction(id));
+                this._activeModal.dismiss(true);
             })
         })
     }

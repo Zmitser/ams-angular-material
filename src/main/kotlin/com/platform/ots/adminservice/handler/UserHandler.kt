@@ -23,6 +23,6 @@ class UserHandler(val userService: UserService) {
                 .flatMap { ServerResponse.status(HttpStatus.CREATED).body(it) }
     }
 
-    fun findOne(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.delete(request.pathVariable("id").toLong()))
+    fun findOne(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.findOne(request.pathVariable("id").toLong()))
 
 }
