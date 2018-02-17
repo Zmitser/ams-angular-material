@@ -1,7 +1,8 @@
 import {ActionReducerMap} from "@ngrx/store";
 import {ApplicationState} from "../store/appication-state";
-import {usersReducer} from "./usersReducer";
+import {usersReducer} from "./storeDataReducer";
+
 
 export const reducers: ActionReducerMap<ApplicationState> = {
-    users: usersReducer
+    usersState: usersReducer,
 };
