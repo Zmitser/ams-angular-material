@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {UserService} from '../shared/services/user.service';
+import {UserService} from '../../shared/services/user.service';
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/map";
 import {
@@ -13,7 +13,7 @@ import {
     LOAD_USERS_ACTION,
     LoadUsersActionSuccess
 } from "../actions/actions";
-import {User} from "../shared/models/user";
+import {User} from "../../shared/models/user";
 
 @Injectable()
 export class UserServiceEffects {

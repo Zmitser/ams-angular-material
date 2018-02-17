@@ -4,8 +4,8 @@ import {
     GET_USER_ACTION_SUCCESS,
     LOAD_USERS_ACTION_SUCCESS
 } from "../actions/actions";
-import {User} from "../shared/models/user";
-import {UsersState} from "../store/usersState";
+import {User} from "../../shared/models/user";
+import {UsersState} from "../usersState";
 
 
 export function usersReducer(state: UsersState, action: any) {

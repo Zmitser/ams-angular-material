@@ -3,7 +3,7 @@ import {Component, Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {ApplicationState} from "../../store/appication-state";
 import {Store} from "@ngrx/store";
-import {GetUserAction} from "../../actions/actions";
+import {GetUserAction} from "../../store/actions/actions";
 
 @Injectable()
 export class UserModalService {

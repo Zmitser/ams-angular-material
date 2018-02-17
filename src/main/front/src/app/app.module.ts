@@ -9,11 +9,12 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard, UserService} from './shared';
-import {UserServiceEffects} from "./effects/user-service-effects";
+import {UserServiceEffects} from "./store/effects/user-service-effects";
 import {EffectsModule} from "@ngrx/effects";
 import {StoreModule} from "@ngrx/store";
-import {reducers} from "./reducers/index";
+import {reducers} from "./store/reducers/index";
 import {INITIAL_APPLICATION_STATE} from "./store/appication-state";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,7 +39,8 @@ export function createTranslateLoader(http: HttpClient) {
         }),
         EffectsModule.forRoot([
             UserServiceEffects
-        ])
+        ]),
+        StoreDevtoolsModule.instrument()
     ],
     declarations: [AppComponent],
     providers: [AuthGuard, UserService],

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import * as UserActions from "../../actions/actions";
+import * as UserActions from "../../store/actions/actions";
 import {User} from '../../shared';
 import {UserModalService} from './user-modal.service';
 import {ApplicationState} from "../../store/appication-state";
