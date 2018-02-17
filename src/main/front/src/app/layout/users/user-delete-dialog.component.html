@@ -12,7 +12,8 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
         </button>
-        <button type="button" (click)="confirmDelete(user.id)" class="btn btn-danger">
+
+        <button type="button" *ngIf="user$ | async; let user" (click)="confirmDelete(user.id)" class="btn btn-danger">
             <span class="fa fa-remove"></span>&nbsp;<span>Delete</span>
         </button>
     </div>

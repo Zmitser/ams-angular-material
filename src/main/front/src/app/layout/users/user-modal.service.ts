@@ -1,8 +1,9 @@
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Component, Injectable} from "@angular/core";
 import {Router} from "@angular/router";
-import {UserService} from "../../shared/services/user.service";
-import {User} from "../../shared/models/user";
+import {ApplicationState} from "../../store/appication-state";
+import {Store} from "@ngrx/store";
+import {GetUserAction} from "../../actions/actions";
 
 @Injectable()
 export class UserModalService {
@@ -11,7 +12,7 @@ export class UserModalService {
 
     constructor(private _modalService: NgbModal,
                 private _router: Router,
-                private _userService: UserService) {
+                private _store: Store<ApplicationState>) {
         this.ngModalRef = null;
     }
 
@@ -23,28 +24,21 @@ export class UserModalService {
                 resolve(this.ngModalRef);
             }
             if (id) {
-                this._userService.findOne(id).subscribe((user) => {
-                    this.ngModalRef = this.userModalRef(component, user);
-                    resolve(this.ngModalRef);
-                });
-            } else {
-
                 setTimeout(() => {
-                    this.ngModalRef = this.userModalRef(component, new User());
+                    this._store.dispatch(new GetUserAction(id));
+                    this.ngModalRef = this.userModalRef(component);
                     resolve(this.ngModalRef);
                 }, 0);
             }
         });
     }
 
-    userModalRef(component: Component, user: User): NgbModalRef {
+    userModalRef(component: Component): NgbModalRef {
         const modalRef = this._modalService.open(component, {size: 'lg', backdrop: 'static'});
-        modalRef.componentInstance.user = user;
         modalRef.result.then(() => {
             this._router.navigate([{outlets: {popup: null}}]).then(() => {
                 this.ngModalRef = null;
             });
-
         }, (reason) => {
             this._router.navigate([{outlets: {popup: null}}]).then(() => {
                 this.ngModalRef = null;

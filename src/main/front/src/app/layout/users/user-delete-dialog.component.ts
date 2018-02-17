@@ -5,7 +5,8 @@ import * as UserActions from "../../actions/actions";
 import {User} from '../../shared';
 import {UserModalService} from './user-modal.service';
 import {ApplicationState} from "../../store/appication-state";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'user-mgmt-delete-dialog',
@@ -13,11 +14,12 @@ import {Store} from "@ngrx/store";
 })
 export class UserMgmtDeleteDialogComponent {
 
-    user: User;
+    user$: Observable<User>;
 
     constructor(private _store: Store<ApplicationState>,
                 public _activeModal: NgbActiveModal,
                 private _router: Router,) {
+        this.user$ = this._store.pipe(select(state => state.usersState.selectedUser))
     }
 
     clear() {
