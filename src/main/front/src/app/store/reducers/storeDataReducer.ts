@@ -1,10 +1,13 @@
 import {
-    ActionWithPayload,
     DELETE_USER_ACTION_SUCCESS,
+    DeleteUserActionSuccess,
     GET_USER_ACTION_SUCCESS,
-    LOAD_USERS_ACTION_SUCCESS
+    GetUserActionSuccess,
+    LOAD_USERS_ACTION_SUCCESS,
+    LoadUsersActionSuccess,
+    SAVE_USER_ACTION_SUCCESS,
+    SaveUserActionSuccess
 } from "../actions/actions";
-import {User} from "../../shared/models/user";
 import {UsersState} from "../usersState";
 
 
@@ -16,13 +19,15 @@ export function usersReducer(state: UsersState, action: any) {
             return handleDeleteSuccess(state, action);
         case GET_USER_ACTION_SUCCESS:
             return handleGetUserActionSuccess(state, action);
+        case SAVE_USER_ACTION_SUCCESS:
+            return handleSaveUserActionSuccess(state, action);
         default:
             return state
     }
 
 }
 
-function handleDeleteSuccess(state: UsersState, action: ActionWithPayload<number>) {
+function handleDeleteSuccess(state: UsersState, action: DeleteUserActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
     newState.users = newState.users.filter(user => user.id != action.payload);
     newState.selectedUser = null;
@@ -30,16 +35,23 @@ function handleDeleteSuccess(state: UsersState, action: ActionWithPayload<number
 
 }
 
-function handleLoadUsersActionSuccess(state: UsersState, action: ActionWithPayload<User[]>) {
+function handleLoadUsersActionSuccess(state: UsersState, action: LoadUsersActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
     newState.users = action.payload;
     return newState;
 }
 
-function handleGetUserActionSuccess(state: UsersState, action: ActionWithPayload<User>) {
+function handleGetUserActionSuccess(state: UsersState, action: GetUserActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
     newState.selectedUser = action.payload;
     return newState;
 }
+
+function handleSaveUserActionSuccess(state: UsersState, action: SaveUserActionSuccess) {
+    const newState: UsersState = Object.assign({}, state);
+    newState.users.push(action.payload);
+    return newState
+}
+
 
 

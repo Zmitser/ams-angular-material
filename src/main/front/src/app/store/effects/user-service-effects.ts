@@ -11,7 +11,10 @@ import {
     GetUserAction,
     GetUserActionSuccess,
     LOAD_USERS_ACTION,
-    LoadUsersActionSuccess
+    LoadUsersActionSuccess,
+    SAVE_USER_ACTION,
+    SaveUserAction,
+    SaveUserActionSuccess
 } from "../actions/actions";
 import {User} from "../../shared/models/user";
 
@@ -30,11 +33,17 @@ export class UserServiceEffects {
         .switchMap((payload: number) => this._userService.delete(payload))
         .map((data: number) => new DeleteUserActionSuccess(data));
 
-    @Effect() findUser = this._action$
+    @Effect() findUser$ = this._action$
         .ofType(GET_USER_ACTION)
         .map((action: GetUserAction) => action.payload)
         .switchMap((payload: number) => this._userService.findOne(payload))
         .map((data: User) => new GetUserActionSuccess(data));
+
+    @Effect() saveUser$ = this._action$
+        .ofType(SAVE_USER_ACTION)
+        .map((action: SaveUserAction) => action.payload)
+        .switchMap((user: User) => this._userService.save(user))
+        .map((user: User) => new SaveUserActionSuccess(user));
 
 
     constructor(private _action$: Actions, private _userService: UserService) {

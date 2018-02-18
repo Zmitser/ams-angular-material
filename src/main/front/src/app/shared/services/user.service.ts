@@ -22,5 +22,8 @@ export class UserService {
         return this._httpClient.get<User>(`/api/v1/users/${id}`)
     }
 
-
+    save(user: User): Observable<User> {
+        console.log(`From save`, user);
+        return this._httpClient.post<User>('/api/v1/users', user)
+    }
 }

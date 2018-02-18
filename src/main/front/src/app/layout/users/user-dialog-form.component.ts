@@ -8,15 +8,15 @@ import {User, UserService} from '../../shared';
 import {Observable} from "rxjs/Observable";
 import {ApplicationState} from "../../store/appication-state";
 import {select, Store} from "@ngrx/store";
+import {SaveUserAction} from "../../store/actions/actions";
 
 @Component({
     selector: 'user-mgmt-dialog-form',
     templateUrl: './user-dialog-form.component.html'
 })
-export class UserMgmtDialogFormComponent implements OnInit {
+export class UserMgmtDialogFormComponent {
 
     user$: Observable<User>;
-    isSaving: Boolean;
 
     constructor(public _activeModal: NgbActiveModal,
                 private _router: Router,
@@ -24,9 +24,6 @@ export class UserMgmtDialogFormComponent implements OnInit {
         this.user$ = this._store.pipe(select(state => state.usersState.selectedUser))
     }
 
-    ngOnInit() {
-        this.isSaving = false;
-    }
 
     clear() {
         this._router.navigate(["../"])
@@ -39,16 +36,14 @@ export class UserMgmtDialogFormComponent implements OnInit {
     }
 
     save() {
-        this.isSaving = true;
-    }
-
-    private onSaveSuccess(result) {
-        this.isSaving = false;
-        this._activeModal.dismiss(result.body);
-    }
-
-    private onSaveError() {
-        this.isSaving = false;
+        this.user$.subscribe(user => {
+            this._router.navigate(["../"]).then(() => {
+                this._router.navigate([".", {outlets: {popup: null}}]).then(() => {
+                    this._store.dispatch(new SaveUserAction(user));
+                    this._activeModal.dismiss(true);
+                })
+            })
+        })
     }
 }
 

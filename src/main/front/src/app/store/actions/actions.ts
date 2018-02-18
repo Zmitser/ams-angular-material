@@ -9,6 +9,8 @@ export const CANCEL_SELECTED_USER = "CANCEL_SELECTED_USER";
 export const CANCEL_SELECTED_USER_SUCCESS = "CANCEL_SELECTED_USER_SUCCESS";
 export const GET_USER_ACTION = "GET_USER_ACTION";
 export const GET_USER_ACTION_SUCCESS = "GET_USER_ACTION_SUCCESS";
+export const SAVE_USER_ACTION = "SAVE_USER_ACTION";
+export const SAVE_USER_ACTION_SUCCESS = "SAVE_USER_ACTION_SUCCESS";
 
 
 export interface ActionWithPayload<T> extends Action {
@@ -77,5 +79,18 @@ export class GetUserActionSuccess implements ActionWithPayload<User> {
     constructor(public payload: User) {
 
     }
+}
 
+export class SaveUserAction implements ActionWithPayload<User> {
+    readonly type: string = SAVE_USER_ACTION;
+
+    constructor(public payload: User) {
+    }
+}
+
+export class SaveUserActionSuccess implements ActionWithPayload<User> {
+    readonly type: string = SAVE_USER_ACTION_SUCCESS;
+
+    constructor(public payload: User) {
+    }
 }

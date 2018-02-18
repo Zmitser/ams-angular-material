@@ -12,29 +12,29 @@ import javax.validation.constraints.Size
 data class User(
         @Id
         @GeneratedValue(strategy = IDENTITY)
-        val id: Long?,
+        var id: Long?,
         @NotNull
         @Size(max = 60, min = 2)
         @Column(name = "first_name", length = 60)
-        val firstName: String?,
+        var firstName: String?,
         @NotNull
         @Size(min = 2, max = 60)
         @Column(name = "last_name", length = 60)
-        val lastName: String?,
+        var lastName: String?,
         @NotNull
         @Size(min = 5, max = 80)
         @Column(name = "username", length = 80)
-        val userName: String?,
+        var userName: String?,
         @NotNull
         @Email
         @Size(min = 5, max = 80)
         @Column(name = "email", unique = true, length = 80)
-        val email: String?,
+        var email: String?,
         @NotNull
         @Size(min = 10, max = 60)
         @Column(name = "password", length = 60)
-        val password: String?,
+        var password: String?,
         @Column(name = "create_date")
-        val createDate: LocalDateTime?) {
+        var createDate: LocalDateTime?) {
     constructor() : this(null, null, null, null, null, null, null)
 }

@@ -2,6 +2,7 @@ package com.platform.ots.adminservice.handler
 
 import com.platform.ots.adminservice.service.UserService
 import com.platform.ots.adminservice.service.dto.UserDto
+import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -13,13 +14,18 @@ import reactor.core.publisher.Mono
 @Component
 class UserHandler(val userService: UserService) {
 
+    private val log = KotlinLogging.logger {}
+
     fun findAll(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.findAll())
 
     fun delete(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.delete(request.pathVariable("id").toLong()))
 
     fun save(request: ServerRequest): Mono<ServerResponse> {
         return request.bodyToMono(UserDto::class.java)
-                .map { userService.save(it) }
+                .map {
+                    log.debug { "From handler: $it" }
+                    userService.save(it)
+                }
                 .flatMap { ServerResponse.status(HttpStatus.CREATED).body(it) }
     }
 

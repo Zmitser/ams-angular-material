@@ -24,14 +24,6 @@ export class UsersComponent implements OnInit {
                 title: 'ID'
             },
 
-            firstName: {
-                title: 'First Name'
-            },
-
-            lastName: {
-                title: 'Last Name'
-            },
-
             userName: {
                 title: 'Username'
             },
