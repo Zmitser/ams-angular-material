@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {User} from "../../shared/models/user";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/appication-state";
 import {routerTransition} from "../../router.animations";
 import {LoadUsersAction} from "../../store/actions/actions";
 import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-button-render.component";
 import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
+import {UserEditButtonRenderComponent} from "./user-components/user-edit-button-render.component";
+import {LocalDataSource} from "ng2-smart-table";
 
 @Component({
     selector: 'app-users',
@@ -15,7 +16,7 @@ import {UserDetailsButtonRenderComponent} from "./user-components/user-details-b
     animations: [routerTransition()]
 })
 export class UsersComponent implements OnInit {
-    users: User[];
+    source: LocalDataSource;
     settings = {
         actions: false,
         columns: {
@@ -43,14 +44,6 @@ export class UsersComponent implements OnInit {
                 valuePrepareFunction: (value) => moment(value).format('YYYY-MM-DD')
 
             },
-            buttonDelete: {
-                title: 'Delete',
-                type: 'custom',
-                renderComponent: UserDeleteButtonRenderComponent,
-                sort: false,
-                edit: false,
-                filter: false
-            },
             buttonDetails: {
                 title: 'Details',
                 type: 'custom',
@@ -59,12 +52,33 @@ export class UsersComponent implements OnInit {
                 edit: false,
                 filter: false
             },
+            buttonEdit: {
+                title: 'Edit',
+                type: 'custom',
+                renderComponent: UserEditButtonRenderComponent,
+                sort: false,
+                edit: false,
+                filter: false
+            },
+            buttonDelete: {
+                title: 'Delete',
+                type: 'custom',
+                renderComponent: UserDeleteButtonRenderComponent,
+                sort: false,
+                edit: false,
+                filter: false
+            },
+
+        },
+        pager: {
+            display: true,
+            perPage: 10
         }
     };
 
     constructor(private _store: Store<ApplicationState>) {
         this._store.pipe(select((state => state.usersState.users ))).subscribe(users => {
-            this.users = users
+            this.source = new LocalDataSource(users)
         });
     }
 

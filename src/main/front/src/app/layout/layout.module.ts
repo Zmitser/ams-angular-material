@@ -8,12 +8,15 @@ import {LayoutComponent} from './layout.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {HeaderComponent} from './components/header/header.component';
 import {UserMgmtDeleteDialogComponent} from "./users/user-delete-dialog.component";
+import {UserMgmtDialogFormComponent} from "./users/user-dialog-form.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
         TranslateModule,
+        FormsModule,
         NgbModule.forRoot()
     ],
     declarations: [
@@ -21,9 +24,11 @@ import {UserMgmtDeleteDialogComponent} from "./users/user-delete-dialog.componen
         SidebarComponent,
         HeaderComponent,
         UserMgmtDeleteDialogComponent,
+        UserMgmtDialogFormComponent
     ],
     entryComponents: [
-        UserMgmtDeleteDialogComponent
+        UserMgmtDeleteDialogComponent,
+        UserMgmtDialogFormComponent
     ],
 
 })

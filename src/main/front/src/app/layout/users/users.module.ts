@@ -8,20 +8,24 @@ import {Ng2SmartTableModule} from "ng2-smart-table";
 import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
 import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-button-render.component";
 import {UserMgmtDetailsComponent} from "./user-details.component";
+import {UserEditButtonRenderComponent} from "./user-components/user-edit-button-render.component";
+import {UserDialogFormComponent} from "./user-dialog-form.component";
 
 @NgModule({
     imports: [
         CommonModule,
         UsersRoutingModule,
-        Ng2SmartTableModule
+        Ng2SmartTableModule,
 
     ],
     declarations: [
         UsersComponent,
         UserMgmtDetailsComponent,
         UserDeleteDialogComponent,
+        UserDialogFormComponent,
         UserDetailsButtonRenderComponent,
-        UserDeleteButtonRenderComponent
+        UserDeleteButtonRenderComponent,
+        UserEditButtonRenderComponent
 
     ],
     providers: [
@@ -29,7 +33,8 @@ import {UserMgmtDetailsComponent} from "./user-details.component";
     ],
     entryComponents: [
         UserDetailsButtonRenderComponent,
-        UserDeleteButtonRenderComponent
+        UserDeleteButtonRenderComponent,
+        UserEditButtonRenderComponent
     ],
 })
 export class UsersModule {

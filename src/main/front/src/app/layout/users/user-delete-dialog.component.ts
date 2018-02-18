@@ -18,7 +18,7 @@ export class UserMgmtDeleteDialogComponent {
 
     constructor(private _store: Store<ApplicationState>,
                 public _activeModal: NgbActiveModal,
-                private _router: Router,) {
+                private _router: Router) {
         this.user$ = this._store.pipe(select(state => state.usersState.selectedUser))
     }
 

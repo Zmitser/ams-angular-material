@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {UsersComponent} from './users.component';
 import {UserDeleteDialogComponent} from "./user-delete-dialog.component";
 import {UserMgmtDetailsComponent} from "./user-details.component";
+import {UserDialogFormComponent} from "./user-dialog-form.component";
 
 const routes: Routes = [
     {
@@ -13,6 +14,9 @@ const routes: Routes = [
     },
     {
         path: ':id/delete', component: UserDeleteDialogComponent, outlet: 'popup'
+    },
+    {
+        path: ':id/edit', component: UserDialogFormComponent, outlet: 'popup'
     },
 ];
 
