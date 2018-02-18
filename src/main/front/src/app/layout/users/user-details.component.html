@@ -1,0 +1,30 @@
+<div [@routerTransition]>
+    <div class="container-fluid">
+        <div class="card" *ngIf="user$ | async; let user">
+            <div class="card-header">
+                <h2><span>User</span> [<b>{{user.userName}}</b>]</h2>
+            </div>
+            <div class="list-group">
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Id</strong></span>{{user.id}}
+                <li class="list-group-item text-right"><span class="pull-left"><strong>First Name</strong></span>{{user.firstName}}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Last Name</strong></span>{{user.lastName}}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Email</strong></span>
+                    {{user.email}}
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Created Date</strong></span>
+                    {{user.createDate | date:'dd/MM/yy HH:mm'}}
+                </li>
+            </div>
+            <div class="card-body">
+                <button type="submit"
+                        [routerLink]="['/']"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

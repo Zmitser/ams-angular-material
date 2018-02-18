@@ -7,9 +7,8 @@ data class UserDto(var id: Long?,
                    var firstName: String?,
                    var lastName: String?,
                    var userName: String?,
-                   var password: String?,
                    var email: String?,
                    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
                    var createDate: LocalDateTime?) {
-    constructor() : this(null, null, null, null, null, null, null)
+    constructor() : this(null, null, null, null, null, null)
 }

@@ -6,15 +6,14 @@ import {ViewCell} from "ng2-smart-table";
 @Component({
     template: `
         <button type="submit"
-                [routerLink]="[{ outlets: { popup: [renderValue, 'delete'] } }]"
-                replaceUrl="true"
-                class="btn btn-danger btn-md">
-            <span class="fa fa-remove"></span>
-            <span class="d-none d-md-inline">Delete</span>
+                [routerLink]="[renderValue, 'details']"
+                class="btn btn-info btn-sm text-white">
+            <span class="fa fa-eye"></span>
+            <span class="d-none d-md-inline">View</span>
         </button>
     `,
 })
-export class DeleteButtonRenderComponent implements OnInit, ViewCell {
+export class UserDetailsButtonRenderComponent implements OnInit, ViewCell {
     renderValue: number;
 
     @Input() value: string | number;

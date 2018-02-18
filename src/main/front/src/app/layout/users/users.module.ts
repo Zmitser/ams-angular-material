@@ -5,7 +5,9 @@ import {UsersRoutingModule} from "./users-routing.module";
 import {UserDeleteDialogComponent} from "./user-delete-dialog.component";
 import {UserModalService} from "./user-modal.service";
 import {Ng2SmartTableModule} from "ng2-smart-table";
-import {DeleteButtonRenderComponent} from "./user-components/delete-button-render.component";
+import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
+import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-button-render.component";
+import {UserMgmtDetailsComponent} from "./user-details.component";
 
 @NgModule({
     imports: [
@@ -16,15 +18,18 @@ import {DeleteButtonRenderComponent} from "./user-components/delete-button-rende
     ],
     declarations: [
         UsersComponent,
+        UserMgmtDetailsComponent,
         UserDeleteDialogComponent,
-        DeleteButtonRenderComponent
+        UserDetailsButtonRenderComponent,
+        UserDeleteButtonRenderComponent
 
     ],
     providers: [
         UserModalService
     ],
     entryComponents: [
-        DeleteButtonRenderComponent
+        UserDetailsButtonRenderComponent,
+        UserDeleteButtonRenderComponent
     ],
 })
 export class UsersModule {

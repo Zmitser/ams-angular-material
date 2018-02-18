@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import * as moment from 'moment'; // add this 1 of 4
+import * as moment from 'moment';
 import {User} from "../../shared/models/user";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/appication-state";
 import {routerTransition} from "../../router.animations";
 import {LoadUsersAction} from "../../store/actions/actions";
-import {DeleteButtonRenderComponent} from "./user-components/delete-button-render.component";
+import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-button-render.component";
+import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
 
 @Component({
     selector: 'app-users',
@@ -34,9 +35,6 @@ export class UsersComponent implements OnInit {
                 title: 'Username'
             },
 
-            password: {
-                title: 'Password'
-            },
             email: {
                 title: 'Email'
             },
@@ -45,10 +43,21 @@ export class UsersComponent implements OnInit {
                 valuePrepareFunction: (value) => moment(value).format('YYYY-MM-DD')
 
             },
-            button: {
-                title: 'Delete User',
+            buttonDelete: {
+                title: 'Delete',
                 type: 'custom',
-                renderComponent: DeleteButtonRenderComponent,
+                renderComponent: UserDeleteButtonRenderComponent,
+                sort: false,
+                edit: false,
+                filter: false
+            },
+            buttonDetails: {
+                title: 'Details',
+                type: 'custom',
+                renderComponent: UserDetailsButtonRenderComponent,
+                sort: false,
+                edit: false,
+                filter: false
             },
         }
     };
