@@ -12,9 +12,9 @@ import {
     GetUserActionSuccess,
     LOAD_USERS_ACTION,
     LoadUsersActionSuccess,
-    SAVE_USER_ACTION,
-    SaveUserAction,
-    SaveUserActionSuccess
+    UPDATE_USER_ACTION,
+    UpdateUserAction,
+    UpdateUserActionSuccess
 } from "../actions/actions";
 import {User} from "../../shared/models/user";
 
@@ -40,10 +40,10 @@ export class UserServiceEffects {
         .map((data: User) => new GetUserActionSuccess(data));
 
     @Effect() saveUser$ = this._action$
-        .ofType(SAVE_USER_ACTION)
-        .map((action: SaveUserAction) => action.payload)
+        .ofType(UPDATE_USER_ACTION)
+        .map((action: UpdateUserAction) => action.payload)
         .switchMap((user: User) => this._userService.save(user))
-        .map((user: User) => new SaveUserActionSuccess(user));
+        .map((user: User) => new UpdateUserActionSuccess(user));
 
 
     constructor(private _action$: Actions, private _userService: UserService) {

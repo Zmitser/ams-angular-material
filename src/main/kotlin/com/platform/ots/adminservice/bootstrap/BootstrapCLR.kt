@@ -21,6 +21,11 @@ class BootstrapCLR(val userRepository: UserRepository) : CommandLineRunner {
                         random(User::class.java),
                         random(User::class.java),
                         random(User::class.java),
+                        random(User::class.java),
+                        random(User::class.java),
+                        random(User::class.java),
+                        random(User::class.java),
+                        random(User::class.java),
                         random(User::class.java))
                         .toFlux()
                         .flatMap { userRepository.save(it) }
