@@ -7,7 +7,10 @@ import {
     DELETE_USER_ACTION,
     DeleteUserActionAction,
     DeleteUserActionSuccess,
+    GET_EMPTY_USER_ACTION,
     GET_USER_ACTION,
+    GetEmptyUserAction,
+    GetEmptyUserActionSuccess,
     GetUserAction,
     GetUserActionSuccess,
     LOAD_USERS_ACTION,
@@ -38,6 +41,11 @@ export class UserServiceEffects {
         .map((action: GetUserAction) => action.payload)
         .switchMap((payload: number) => this._userService.findOne(payload))
         .map((data: User) => new GetUserActionSuccess(data));
+
+    @Effect() emptyUser$ = this._action$
+        .ofType(GET_EMPTY_USER_ACTION)
+        .switchMap((payload: GetEmptyUserAction) => this._userService.createEmptyUser())
+        .map((data: User) => new GetEmptyUserActionSuccess(data));
 
     @Effect() saveUser$ = this._action$
         .ofType(UPDATE_USER_ACTION)

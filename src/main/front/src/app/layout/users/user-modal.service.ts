@@ -3,7 +3,7 @@ import {Component, Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {ApplicationState} from "../../store/appication-state";
 import {Store} from "@ngrx/store";
-import {GetUserAction} from "../../store/actions/actions";
+import {GetEmptyUserAction, GetUserAction} from "../../store/actions/actions";
 
 @Injectable()
 export class UserModalService {
@@ -23,13 +23,12 @@ export class UserModalService {
             if (isOpen) {
                 resolve(this.ngModalRef);
             }
-            if (id) {
-                setTimeout(() => {
-                    this._store.dispatch(new GetUserAction(id));
-                    this.ngModalRef = this.userModalRef(component);
-                    resolve(this.ngModalRef);
-                }, 0);
-            }
+
+            setTimeout(() => {
+                this._store.dispatch(id ? new GetUserAction(id) : new GetEmptyUserAction());
+                this.ngModalRef = this.userModalRef(component);
+                resolve(this.ngModalRef);
+            }, 0);
         });
     }
 

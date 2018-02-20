@@ -1,5 +1,12 @@
 <div [@routerTransition]>
     <div class="container-fluid">
+        <h2>
+            <span jhiTranslate="userManagement.home.title">Users</span>
+            <button class="btn btn-primary float-right jh-create-entity"
+                    [routerLink]="[{ outlets: { popup: ['new'] } }]">
+                <span class="fa fa-plus"></span> <span>Create a new User</span>
+            </button>
+        </h2>
         <div class="card">
             <div class="row">
                 <div class="col-md-12">

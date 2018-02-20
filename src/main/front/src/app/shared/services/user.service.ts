@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../models/user";
+import "rxjs/add/observable/of";
 
 @Injectable()
 export class UserService {
@@ -20,6 +21,10 @@ export class UserService {
 
     findOne(id: number): Observable<User> {
         return this._httpClient.get<User>(`/api/v1/users/${id}`)
+    }
+
+    createEmptyUser(): Observable<User> {
+        return Observable.of(new User())
     }
 
     save(user: User): Observable<User> {

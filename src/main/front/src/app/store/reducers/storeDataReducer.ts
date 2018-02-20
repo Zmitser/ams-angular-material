@@ -1,7 +1,9 @@
 import {
     DELETE_USER_ACTION_SUCCESS,
     DeleteUserActionSuccess,
+    GET_EMPTY_USER_ACTION_SUCCESS,
     GET_USER_ACTION_SUCCESS,
+    GetEmptyUserActionSuccess,
     GetUserActionSuccess,
     LOAD_USERS_ACTION_SUCCESS,
     LoadUsersActionSuccess,
@@ -9,7 +11,14 @@ import {
     UpdateUserActionSuccess
 } from "../actions/actions";
 import {UsersState} from "../usersState";
+import {User} from "../../shared/models/user";
 
+
+function handleEmptyGetUserActionSuccess(state: UsersState, action: GetEmptyUserActionSuccess) {
+    const newState: UsersState = Object.assign({}, state);
+    newState.selectedUser = action.payload;
+    return newState;
+}
 
 export function usersReducer(state: UsersState, action: any) {
     switch (action.type) {
@@ -19,6 +28,8 @@ export function usersReducer(state: UsersState, action: any) {
             return handleDeleteSuccess(state, action);
         case GET_USER_ACTION_SUCCESS:
             return handleGetUserActionSuccess(state, action);
+        case GET_EMPTY_USER_ACTION_SUCCESS:
+            return handleEmptyGetUserActionSuccess(state, action);
         case UPDATE_USER_ACTION_SUCCESS:
             return handleSaveUserActionSuccess(state, action);
         default:
@@ -51,8 +62,13 @@ function handleGetUserActionSuccess(state: UsersState, action: GetUserActionSucc
 
 function handleSaveUserActionSuccess(state: UsersState, action: UpdateUserActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
-    let itemIndex = newState.users.findIndex(item => item.id == action.payload.id);
-    newState.users[itemIndex] = action.payload;
+    const user: User = action.payload;
+    let itemIndex = newState.users.findIndex(item => item.id == user.id);
+    if (itemIndex !== -1) {
+        newState.users[itemIndex] = user;
+    } else {
+        newState.users.push(user)
+    }
     newState.selectedUser = null;
     newState.userTable.refresh();
     return newState

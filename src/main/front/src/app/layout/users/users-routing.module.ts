@@ -18,6 +18,9 @@ const routes: Routes = [
     {
         path: ':id/edit', component: UserDialogFormComponent, outlet: 'popup'
     },
+    {
+        path: 'new', component: UserDialogFormComponent, outlet: 'popup'
+    },
 ];
 
 

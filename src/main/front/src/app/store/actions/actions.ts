@@ -11,6 +11,8 @@ export const GET_USER_ACTION = "GET_USER_ACTION";
 export const GET_USER_ACTION_SUCCESS = "GET_USER_ACTION_SUCCESS";
 export const UPDATE_USER_ACTION = "UPDATE_USER_ACTION";
 export const UPDATE_USER_ACTION_SUCCESS = "UPDATE_USER_ACTION_SUCCESS";
+export const GET_EMPTY_USER_ACTION = "GET_EMPTY_USER_ACTION";
+export const GET_EMPTY_USER_ACTION_SUCCESS = "GET_EMPTY_USER_ACTION_SUCCESS";
 
 
 export interface ActionWithPayload<T> extends Action {
@@ -73,6 +75,22 @@ export class GetUserAction implements ActionWithPayload<number> {
     }
 }
 
+export class GetEmptyUserAction implements Action {
+    readonly type: string = GET_EMPTY_USER_ACTION;
+
+    constructor() {
+
+    }
+}
+
+export class GetEmptyUserActionSuccess implements ActionWithPayload<User> {
+    readonly type: string = GET_EMPTY_USER_ACTION_SUCCESS;
+
+    constructor(public payload: User) {
+
+    }
+}
+
 export class GetUserActionSuccess implements ActionWithPayload<User> {
     readonly type: string = GET_USER_ACTION_SUCCESS;
 
@@ -94,3 +112,4 @@ export class UpdateUserActionSuccess implements ActionWithPayload<User> {
     constructor(public payload: User) {
     }
 }
+
