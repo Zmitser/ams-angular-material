@@ -1,5 +1,6 @@
 import {Action} from "@ngrx/store";
 import {User} from "../../shared/models/user";
+import {NavigationExtras} from "@angular/router";
 
 export const LOAD_USERS_ACTION = 'LOAD_USERS_ACTION';
 export const LOAD_USERS_ACTION_SUCCESS = "LOAD_USERS_ACTION_SUCCESS";
@@ -14,6 +15,8 @@ export const UPDATE_USER_ACTION_SUCCESS = "UPDATE_USER_ACTION_SUCCESS";
 export const GET_EMPTY_USER_ACTION = "GET_EMPTY_USER_ACTION";
 export const GET_EMPTY_USER_ACTION_SUCCESS = "GET_EMPTY_USER_ACTION_SUCCESS";
 
+export const GO = '[Router] Go';
+export const BACK = '[Router] Back';
 
 export interface ActionWithPayload<T> extends Action {
     payload: T;
@@ -111,5 +114,20 @@ export class UpdateUserActionSuccess implements ActionWithPayload<User> {
 
     constructor(public payload: User) {
     }
+}
+
+export class Go implements Action {
+    readonly type = GO;
+
+    constructor(public payload: {
+        path: any[];
+        query?: object;
+        extras?: NavigationExtras;
+    }) {
+    }
+}
+
+export class Back implements Action {
+    readonly type = BACK;
 }
 

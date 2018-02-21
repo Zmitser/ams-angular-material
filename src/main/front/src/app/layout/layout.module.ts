@@ -17,7 +17,8 @@ import {FormsModule} from "@angular/forms";
         LayoutRoutingModule,
         TranslateModule,
         FormsModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+
     ],
     declarations: [
         LayoutComponent,
@@ -30,6 +31,7 @@ import {FormsModule} from "@angular/forms";
         UserMgmtDeleteDialogComponent,
         UserMgmtDialogFormComponent
     ],
+
 
 })
 export class LayoutModule {

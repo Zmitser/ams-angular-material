@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/appication-state";
 import {routerTransition} from "../../router.animations";
-import {LoadUsersAction} from "../../store/actions/actions";
+import {Go, LoadUsersAction} from "../../store/actions/actions";
 import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-button-render.component";
 import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
 import {UserEditButtonRenderComponent} from "./user-components/user-edit-button-render.component";
@@ -64,7 +64,7 @@ export class UsersComponent implements OnInit {
         },
         pager: {
             display: true,
-            perPage: 10
+            perPage: 9
         }
     };
 
@@ -76,5 +76,13 @@ export class UsersComponent implements OnInit {
 
     ngOnInit() {
         this._store.dispatch(new LoadUsersAction())
+    }
+
+    showCreateForm() {
+        this._store.dispatch(new Go({
+            path: ['/users', {outlets: {popup: ['new']}}],
+            query: {},
+            extras: {}
+        }));
     }
 }

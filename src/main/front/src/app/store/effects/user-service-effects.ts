@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {UserService} from '../../shared/services/user.service';
+import {UserService} from '../../layout/users/user.service';
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/map";
 import {

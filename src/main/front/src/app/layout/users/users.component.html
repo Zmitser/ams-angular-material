@@ -1,9 +1,9 @@
 <div [@routerTransition]>
     <div class="container-fluid">
         <h2>
-            <span jhiTranslate="userManagement.home.title">Users</span>
+            <span>Users</span>
             <button class="btn btn-primary float-right jh-create-entity"
-                    [routerLink]="[{ outlets: { popup: ['new'] } }]">
+                    (click)="showCreateForm()">
                 <span class="fa fa-plus"></span> <span>Create a new User</span>
             </button>
         </h2>

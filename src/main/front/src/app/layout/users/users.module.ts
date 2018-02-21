@@ -29,7 +29,7 @@ import {UserDialogFormComponent} from "./user-dialog-form.component";
 
     ],
     providers: [
-        UserModalService
+        UserModalService,
     ],
     entryComponents: [
         UserDetailsButtonRenderComponent,

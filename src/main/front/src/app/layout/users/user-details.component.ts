@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
-import {User, UserService} from '../../shared';
+import {User} from '../../shared';
 import {Observable} from "rxjs/Observable";
 import {ApplicationState} from "../../store/appication-state";
 import {select, Store} from "@ngrx/store";

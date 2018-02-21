@@ -8,13 +8,17 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AuthGuard, UserService} from './shared';
+import {AuthGuard} from './shared';
 import {UserServiceEffects} from "./store/effects/user-service-effects";
 import {EffectsModule} from "@ngrx/effects";
 import {StoreModule} from "@ngrx/store";
 import {reducers} from "./store/reducers/index";
 import {INITIAL_APPLICATION_STATE} from "./store/appication-state";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {UserService} from "./layout/users/user.service";
+import {RouterStateSerializer, StoreRouterConnectingModule} from "@ngrx/router-store";
+import {CustomSerializer} from "./store/custom-serializer";
+import {RouterServiceEffects} from "./store/effects/router-service-effects";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,12 +42,16 @@ export function createTranslateLoader(http: HttpClient) {
             initialState: INITIAL_APPLICATION_STATE
         }),
         EffectsModule.forRoot([
-            UserServiceEffects
+            UserServiceEffects,
+            RouterServiceEffects
         ]),
+        StoreRouterConnectingModule.forRoot({
+            stateKey: 'router'
+        }),
         StoreDevtoolsModule.instrument()
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, UserService],
+    providers: [AuthGuard, UserService, {provide: RouterStateSerializer, useClass: CustomSerializer}],
     bootstrap: [AppComponent]
 })
 export class AppModule {

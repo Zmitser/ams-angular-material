@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import * as UserActions from "../../store/actions/actions";
 import {User} from '../../shared';
 import {UserModalService} from './user-modal.service';
 import {ApplicationState} from "../../store/appication-state";
 import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
+import {Back, DeleteUserActionAction} from "../../store";
 
 @Component({
     selector: 'user-mgmt-delete-dialog',
@@ -17,28 +17,19 @@ export class UserMgmtDeleteDialogComponent {
     user$: Observable<User>;
 
     constructor(private _store: Store<ApplicationState>,
-                public _activeModal: NgbActiveModal,
-                private _router: Router) {
+                public _activeModal: NgbActiveModal) {
         this.user$ = this._store.pipe(select(state => state.usersState.selectedUser))
     }
 
     clear() {
-        this._router.navigate(["../"])
-            .then(() => {
-                this._router.navigate([".", {outlets: {popup: null}}])
-                    .then(() => {
-                        this._activeModal.dismiss('cancel');
-                    });
-            })
+        this._store.dispatch(new Back());
+        this._activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this._router.navigate(["../"]).then(() => {
-            this._router.navigate([".", {outlets: {popup: null}}]).then(() => {
-                this._store.dispatch(new UserActions.DeleteUserActionAction(id));
-                this._activeModal.dismiss(true);
-            })
-        })
+        this._store.dispatch(new Back());
+        this._store.dispatch(new DeleteUserActionAction(id));
+        this._activeModal.dismiss(true);
     }
 }
 
@@ -51,13 +42,18 @@ export class UserDeleteDialogComponent implements OnInit, OnDestroy {
     routeSub: any;
 
     constructor(private route: ActivatedRoute,
-                private _userModalService: UserModalService) {
+                private _userModalService: UserModalService,
+                private _store: Store<ApplicationState>) {
     }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
+            console.log('From route', params);
             this._userModalService.open(UserMgmtDeleteDialogComponent as Component, params['id']);
         });
+        this._store.select('router', 'state').subscribe(params => {
+            console.log('From store', params)
+        })
     }
 
     ngOnDestroy() {
