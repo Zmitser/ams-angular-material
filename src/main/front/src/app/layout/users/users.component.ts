@@ -8,6 +8,7 @@ import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-but
 import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
 import {UserEditButtonRenderComponent} from "./user-components/user-edit-button-render.component";
 import {LocalDataSource} from "ng2-smart-table";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
     selector: 'app-users',
@@ -68,14 +69,15 @@ export class UsersComponent implements OnInit {
         }
     };
 
-    constructor(private _store: Store<ApplicationState>) {
+    constructor(private _store: Store<ApplicationState>, public toastr: ToastsManager) {
         this._store.pipe(select((state => state.usersState.users ))).subscribe(users => {
             this.source = users
         });
     }
 
     ngOnInit() {
-        this._store.dispatch(new LoadUsersAction())
+        this._store.dispatch(new LoadUsersAction());
+        this.toastr.info('You are on User Page Now!', 'Greetings!');
     }
 
     showCreateForm() {

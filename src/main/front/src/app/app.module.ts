@@ -19,9 +19,19 @@ import {UserService} from "./layout/users/user.service";
 import {RouterStateSerializer, StoreRouterConnectingModule} from "@ngrx/router-store";
 import {CustomSerializer} from "./store/custom-serializer";
 import {RouterServiceEffects} from "./store/effects/router-service-effects";
+import {NotifierModule} from "angular-notifier";
+import {ToastModule, ToastOptions} from "ng2-toastr";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+
+export class CustomOption extends ToastOptions {
+    animate = 'flyRight'; // you can override any options available
+    newestOnTop = false;
+    showCloseButton = true;
+    positionClass = 'toast-bottom-right'
 }
 
 @NgModule({
@@ -29,6 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
         CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
+        ToastModule.forRoot(),
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {
@@ -48,10 +59,14 @@ export function createTranslateLoader(http: HttpClient) {
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
+        NotifierModule,
         StoreDevtoolsModule.instrument()
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, UserService, {provide: RouterStateSerializer, useClass: CustomSerializer}],
+    providers: [AuthGuard, UserService, {
+        provide: RouterStateSerializer,
+        useClass: CustomSerializer
+    }, {provide: ToastOptions, useClass: CustomOption},],
     bootstrap: [AppComponent]
 })
 export class AppModule {

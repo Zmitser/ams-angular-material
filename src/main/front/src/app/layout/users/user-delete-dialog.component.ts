@@ -7,6 +7,7 @@ import {ApplicationState} from "../../store/appication-state";
 import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
 import {Back, DeleteUserActionAction} from "../../store";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
     selector: 'user-mgmt-delete-dialog',
@@ -17,7 +18,8 @@ export class UserMgmtDeleteDialogComponent {
     user$: Observable<User>;
 
     constructor(private _store: Store<ApplicationState>,
-                public _activeModal: NgbActiveModal) {
+                private _activeModal: NgbActiveModal,
+                public toastr: ToastsManager) {
         this.user$ = this._store.pipe(select(state => state.usersState.selectedUser))
     }
 
@@ -30,6 +32,7 @@ export class UserMgmtDeleteDialogComponent {
         this._store.dispatch(new Back());
         this._store.dispatch(new DeleteUserActionAction(id));
         this._activeModal.dismiss(true);
+        this.toastr.success(`User with ${id} was deleted successfully!`, 'Success!');
     }
 }
 
@@ -47,7 +50,6 @@ export class UserDeleteDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            console.log('From route', params);
             this._userModalService.open(UserMgmtDeleteDialogComponent as Component, params['id']);
         });
     }
