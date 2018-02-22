@@ -10,7 +10,7 @@ import {
     UPDATE_USER_ACTION_SUCCESS,
     UpdateUserActionSuccess
 } from "../actions/actions";
-import {UsersState} from "../usersState";
+import {UsersState} from "../users-state";
 import {User} from "../../shared/models/user";
 
 
@@ -40,17 +40,17 @@ export function usersReducer(state: UsersState, action: any) {
 
 function handleDeleteSuccess(state: UsersState, action: DeleteUserActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
-    newState.users = newState.users.filter(user => user.id != action.payload);
-    newState.selectedUser = null;
-    newState.userTable.load(newState.users);
+    newState.users.getAll().then((users: User[]) => {
+        newState.selectedUser = null;
+        newState.users.load(users.filter(user => user.id != action.payload));
+    });
     return newState;
 
 }
 
 function handleLoadUsersActionSuccess(state: UsersState, action: LoadUsersActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
-    newState.users = action.payload;
-    newState.userTable.load(newState.users);
+    newState.users.load(action.payload);
     return newState;
 }
 
@@ -63,14 +63,17 @@ function handleGetUserActionSuccess(state: UsersState, action: GetUserActionSucc
 function handleSaveUserActionSuccess(state: UsersState, action: UpdateUserActionSuccess) {
     const newState: UsersState = Object.assign({}, state);
     const user: User = action.payload;
-    let itemIndex = newState.users.findIndex(item => item.id == user.id);
-    if (itemIndex !== -1) {
-        newState.users[itemIndex] = user;
-    } else {
-        newState.users.push(user)
-    }
-    newState.selectedUser = null;
-    newState.userTable.refresh();
+    newState.users.getAll().then((users: User[]) => {
+        let itemIndex = users.findIndex(item => item.id == user.id);
+        if (itemIndex !== -1) {
+            users[itemIndex] = user;
+        } else {
+            users.push(user)
+        }
+        newState.selectedUser = null;
+        newState.users.load(users)
+    });
+
     return newState
 }
 

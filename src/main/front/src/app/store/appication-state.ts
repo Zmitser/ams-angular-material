@@ -1,4 +1,4 @@
-import {INITIAL_USERS_STATE, UsersState} from "./usersState";
+import {INITIAL_USERS_STATE, UsersState} from "./users-state";
 import {INITIAL_ROUTER_REDUCER_STATE, RouterStateUrl} from "./router-state-url";
 import {RouterReducerState} from "@ngrx/router-store";
 

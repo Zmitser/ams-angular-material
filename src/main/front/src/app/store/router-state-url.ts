@@ -13,5 +13,5 @@ export const INITIAL_ROUTER_REDUCER_STATE: RouterReducerState<RouterStateUrl> = 
         params: [],
         queryParams: []
     },
-    navigationId: 0
+    navigationId: +1
 };

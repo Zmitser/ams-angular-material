@@ -69,7 +69,7 @@ export class UsersComponent implements OnInit {
     };
 
     constructor(private _store: Store<ApplicationState>) {
-        this._store.pipe(select((state => state.usersState.userTable ))).subscribe(users => {
+        this._store.pipe(select((state => state.usersState.users ))).subscribe(users => {
             this.source = users
         });
     }

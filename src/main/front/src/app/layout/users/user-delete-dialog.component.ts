@@ -42,8 +42,7 @@ export class UserDeleteDialogComponent implements OnInit, OnDestroy {
     routeSub: any;
 
     constructor(private route: ActivatedRoute,
-                private _userModalService: UserModalService,
-                private _store: Store<ApplicationState>) {
+                private _userModalService: UserModalService) {
     }
 
     ngOnInit() {
@@ -51,9 +50,6 @@ export class UserDeleteDialogComponent implements OnInit, OnDestroy {
             console.log('From route', params);
             this._userModalService.open(UserMgmtDeleteDialogComponent as Component, params['id']);
         });
-        this._store.select('router', 'state').subscribe(params => {
-            console.log('From store', params)
-        })
     }
 
     ngOnDestroy() {
