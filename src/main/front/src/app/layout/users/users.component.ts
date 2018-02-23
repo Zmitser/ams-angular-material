@@ -3,11 +3,11 @@ import * as moment from 'moment';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/appication-state";
 import {routerTransition} from "../../router.animations";
-import {Go, LoadUsersAction} from "../../store/actions/actions";
+import {CreateUsersDataSourceAction, Go} from "../../store/actions/actions";
 import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-button-render.component";
 import {UserDetailsButtonRenderComponent} from "./user-components/user-details-button-render.component";
 import {UserEditButtonRenderComponent} from "./user-components/user-edit-button-render.component";
-import {LocalDataSource} from "ng2-smart-table";
+import {ServerDataSource} from "ng2-smart-table";
 import {ToastsManager} from "ng2-toastr";
 
 @Component({
@@ -17,7 +17,7 @@ import {ToastsManager} from "ng2-toastr";
     animations: [routerTransition()]
 })
 export class UsersComponent implements OnInit {
-    source: LocalDataSource;
+    source: ServerDataSource;
     settings = {
         actions: false,
         columns: {
@@ -76,7 +76,7 @@ export class UsersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._store.dispatch(new LoadUsersAction());
+        this._store.dispatch(new CreateUsersDataSourceAction());
         this.toastr.info('You are on User Page Now!', 'Greetings!');
     }
 

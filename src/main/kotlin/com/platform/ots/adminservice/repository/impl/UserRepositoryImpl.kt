@@ -3,14 +3,20 @@ package com.platform.ots.adminservice.repository.impl
 import com.platform.ots.adminservice.domain.User
 import com.platform.ots.adminservice.repository.UserRepository
 import mu.KotlinLogging
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.core.publisher.toFlux
 import reactor.core.publisher.toMono
 
+
 @Repository
 class UserRepositoryImpl(val proxyUserRepository: ProxyUserRepository) : UserRepository {
+    override fun findAll(pageable: Pageable): Mono<Page<User>> {
+        return proxyUserRepository.findAll(pageable).toMono()
+    }
 
     private val log = KotlinLogging.logger {}
 

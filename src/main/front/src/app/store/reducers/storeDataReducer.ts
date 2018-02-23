@@ -1,4 +1,6 @@
 import {
+    CREATE_USERS_DATA_SOURCE_SUCCESS,
+    CreateUsersDataSourceActionSuccess,
     DELETE_USER_ACTION_SUCCESS,
     DeleteUserActionSuccess,
     GET_EMPTY_USER_ACTION_SUCCESS,
@@ -14,16 +16,12 @@ import {UsersState} from "../users-state";
 import {User} from "../../shared/models/user";
 
 
-function handleEmptyGetUserActionSuccess(state: UsersState, action: GetEmptyUserActionSuccess) {
-    const newState: UsersState = Object.assign({}, state);
-    newState.selectedUser = action.payload;
-    return newState;
-}
-
 export function usersReducer(state: UsersState, action: any) {
     switch (action.type) {
         case LOAD_USERS_ACTION_SUCCESS:
             return handleLoadUsersActionSuccess(state, action);
+        case CREATE_USERS_DATA_SOURCE_SUCCESS:
+            return handleCreateUsersDataSourceSuccess(state, action);
         case DELETE_USER_ACTION_SUCCESS:
             return handleDeleteSuccess(state, action);
         case GET_USER_ACTION_SUCCESS:
@@ -78,4 +76,14 @@ function handleSaveUserActionSuccess(state: UsersState, action: UpdateUserAction
 }
 
 
+function handleEmptyGetUserActionSuccess(state: UsersState, action: GetEmptyUserActionSuccess) {
+    const newState: UsersState = Object.assign({}, state);
+    newState.selectedUser = action.payload;
+    return newState;
+}
 
+function handleCreateUsersDataSourceSuccess(state: UsersState, action: CreateUsersDataSourceActionSuccess) {
+    const newState: UsersState = Object.assign({}, state);
+    newState.users = action.payload;
+    return newState
+}

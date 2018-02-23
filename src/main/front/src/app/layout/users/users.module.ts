@@ -10,14 +10,12 @@ import {UserDeleteButtonRenderComponent} from "./user-components/user-delete-but
 import {UserMgmtDetailsComponent} from "./user-details.component";
 import {UserEditButtonRenderComponent} from "./user-components/user-edit-button-render.component";
 import {UserDialogFormComponent} from "./user-dialog-form.component";
-import {NotifierModule} from "angular-notifier";
 
 @NgModule({
     imports: [
         CommonModule,
         UsersRoutingModule,
         Ng2SmartTableModule,
-        NotifierModule,
 
     ],
     declarations: [

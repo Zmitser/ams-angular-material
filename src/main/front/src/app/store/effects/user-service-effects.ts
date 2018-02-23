@@ -4,6 +4,8 @@ import {UserService} from '../../layout/users/user.service';
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/map";
 import {
+    CREATE_USERS_DATA_SOURCE,
+    CreateUsersDataSourceActionSuccess,
     DELETE_USER_ACTION,
     DeleteUserActionAction,
     DeleteUserActionSuccess,
@@ -14,6 +16,7 @@ import {
     GetUserAction,
     GetUserActionSuccess,
     LOAD_USERS_ACTION,
+    LoadUsersAction,
     LoadUsersActionSuccess,
     UPDATE_USER_ACTION,
     UpdateUserAction,
@@ -27,8 +30,15 @@ export class UserServiceEffects {
 
     @Effect() findUsers$ = this._action$
         .ofType(LOAD_USERS_ACTION)
-        .switchMap(action => this._userService.findAll())
-        .map(data => new LoadUsersActionSuccess(data));
+        .switchMap((action: LoadUsersAction) => this._userService.findAll())
+        .map((data: User[]) => new LoadUsersActionSuccess(data));
+
+
+    @Effect() createUsersDataSource = this._action$
+        .ofType(CREATE_USERS_DATA_SOURCE)
+        .switchMap(action => this._userService.createServerDataSource())
+        .map(data => new CreateUsersDataSourceActionSuccess(data));
+
 
     @Effect() deleteUser$ = this._action$
         .ofType(DELETE_USER_ACTION)

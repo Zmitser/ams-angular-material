@@ -10,6 +10,7 @@ import {ApplicationState} from "../../store/appication-state";
 import {select, Store} from "@ngrx/store";
 import {Back, UpdateUserAction} from "../../store/actions/actions";
 import {Subscription} from "rxjs/Subscription";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
     selector: 'user-mgmt-dialog-form',
@@ -26,6 +27,7 @@ export class UserMgmtDialogFormComponent implements OnDestroy {
 
     constructor(public _activeModal: NgbActiveModal,
                 private _router: Router,
+                public toastr: ToastsManager,
                 private _store: Store<ApplicationState>) {
         this.user$ = this._store.pipe(select(state => state.usersState.selectedUser))
     }
@@ -41,6 +43,7 @@ export class UserMgmtDialogFormComponent implements OnDestroy {
             this._router.navigate(["../"]).then(() => {
                 this._store.dispatch(new UpdateUserAction(user));
                 this._activeModal.dismiss(user);
+                this.toastr.success(`User with ${user.id} was changed successfully!`, 'Success!');
             })
         })
     }

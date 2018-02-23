@@ -1,9 +1,12 @@
 import {Action} from "@ngrx/store";
 import {User} from "../../shared/models/user";
 import {NavigationExtras} from "@angular/router";
+import {ServerDataSource} from "ng2-smart-table";
 
 export const LOAD_USERS_ACTION = 'LOAD_USERS_ACTION';
 export const LOAD_USERS_ACTION_SUCCESS = "LOAD_USERS_ACTION_SUCCESS";
+export const CREATE_USERS_DATA_SOURCE = "CREATE_USERS_DATA_SOURCE";
+export const CREATE_USERS_DATA_SOURCE_SUCCESS = "CREATE_USERS_DATA_SOURCE_SUCCESS";
 export const DELETE_USER_ACTION = "DELETE_USER_ACTION";
 export const DELETE_USER_ACTION_SUCCESS = "DELETE_USER_ACTION_SUCCESS";
 export const CANCEL_SELECTED_USER = "CANCEL_SELECTED_USER";
@@ -115,6 +118,20 @@ export class UpdateUserActionSuccess implements ActionWithPayload<User> {
     constructor(public payload: User) {
     }
 }
+
+export class CreateUsersDataSourceAction implements Action {
+    readonly type: string = CREATE_USERS_DATA_SOURCE;
+
+}
+
+export class CreateUsersDataSourceActionSuccess implements ActionWithPayload<ServerDataSource> {
+    readonly type: string = CREATE_USERS_DATA_SOURCE_SUCCESS;
+
+
+    constructor(public payload: ServerDataSource) {
+    }
+}
+
 
 export class Go implements Action {
     readonly type = GO;
