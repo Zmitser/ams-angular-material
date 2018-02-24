@@ -1,6 +1,6 @@
 package com.platform.ots.adminservice.router
 
-import com.platform.ots.adminservice.handler.UserHandler
+import com.platform.ots.adminservice.handler.LogHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType.APPLICATION_JSON
@@ -9,16 +9,13 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.router
 
 @Configuration
-class UserRouter(val userHandler: UserHandler) {
+class LogRouter(val logHandler: LogHandler) {
 
     @Bean
-    fun userApis(): RouterFunction<ServerResponse> = router {
-        (accept(APPLICATION_JSON) and "/api/v1/users").nest {
-            GET("", userHandler::findAll)
-            GET("/page", userHandler::findAllPage)
-            DELETE("/{id}", userHandler::delete)
-            POST("", userHandler::save)
-            GET("/{id}", userHandler::findOne)
+    fun logApis(): RouterFunction<ServerResponse> = router {
+        (accept(APPLICATION_JSON) and "/api/v1/logs").nest {
+            GET("", logHandler::list)
+            PUT("", logHandler::changeLevel)
         }
     }
 }

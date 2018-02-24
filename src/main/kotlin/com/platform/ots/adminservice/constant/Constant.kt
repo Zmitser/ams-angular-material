@@ -16,6 +16,12 @@ object Constant {
     const val SERVER_SSL_KEYSTORE: String = "server.ssl.key-store"
     const val SPRING_APPLICATION_NAME: String = "spring.application.name"
     const val SERVER_PORT: String = "server.port"
+    const val PROPS_METRIC_REG_JVM_MEMORY = "jvm.memory"
+    const val PROPS_METRIC_REG_JVM_GARBAGE = "jvm.garbage"
+    const val PROPS_METRIC_REG_JVM_THREADS = "jvm.threads"
+    const val PROPS_METRIC_REG_JVM_FILES = "jvm.files"
+    const val PROPS_METRIC_REG_JVM_BUFFERS = "jvm.buffers"
+    const val PROPS_METRIC_REG_JVM_ATTRIBUTES = "jvm.attributes"
 
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.ok
+import org.springframework.web.reactive.function.server.ServerResponse.status
 import org.springframework.web.reactive.function.server.body
 import reactor.core.publisher.Mono
 
@@ -37,7 +38,7 @@ class UserHandler(val userService: UserService) {
                     log.debug { "From handler: $it" }
                     userService.save(it)
                 }
-                .flatMap { ServerResponse.status(HttpStatus.CREATED).body(it) }
+                .flatMap { status(HttpStatus.CREATED).body(it) }
     }
 
     fun findOne(request: ServerRequest): Mono<ServerResponse> = ok().body(userService.findOne(request.pathVariable("id").toLong()))

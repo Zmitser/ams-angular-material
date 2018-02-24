@@ -1,19 +1,13 @@
 package com.platform.ots.adminservice
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.platform.ots.adminservice.constant.Constant
 import com.platform.ots.adminservice.util.DefaultProfileUtil
 import mu.KotlinLogging
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.context.annotation.Bean
 import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.Environment
 import org.springframework.core.env.get
-import org.zalando.problem.ProblemModule
-import org.zalando.problem.validation.ConstraintViolationProblemModule
 import java.net.InetAddress
 import javax.annotation.PostConstruct
 
@@ -23,13 +17,6 @@ private val log = KotlinLogging.logger { }
 
 @SpringBootApplication
 class AdminServiceApplication(val environment: Environment) {
-
-    @Bean
-    fun mapper(): ObjectMapper = ObjectMapper()
-            .registerModule(ProblemModule())
-            .registerModule(ConstraintViolationProblemModule())
-            .registerModule(KotlinModule())
-            .registerModule(JavaTimeModule())
 
 
     @PostConstruct
