@@ -14,11 +14,11 @@ import reactor.core.publisher.toMono
 
 @Repository
 class UserRepositoryImpl(val proxyUserRepository: ProxyUserRepository) : UserRepository {
+    private val log = KotlinLogging.logger {}
+
     override fun findAll(pageable: Pageable): Mono<Page<User>> {
         return proxyUserRepository.findAll(pageable).toMono()
     }
-
-    private val log = KotlinLogging.logger {}
 
     override fun findOne(id: Long): Mono<User> = proxyUserRepository.findById(id).orElseGet { null }.toMono()
 

@@ -1,6 +1,6 @@
 package com.platform.ots.adminservice.aop.logging
 
-import com.platform.ots.adminservice.constant.Constant
+import com.platform.ots.adminservice.constant.Constants
 import mu.KotlinLogging
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
@@ -33,7 +33,7 @@ class LoggingAspect(val environment: Environment) {
      */
     @AfterThrowing(pointcut = "applicationPackagePointCut()", throwing = "throwable")
     fun logAfterThrowing(joinPoint: JoinPoint, throwable: Throwable) {
-        if (environment.acceptsProfiles(Constant.SPRING_PROFILE_DEVELOPMENT)) {
+        if (environment.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
             log.error(throwable) {
                 """
                     Exception in ${joinPoint.signature.declaringTypeName}.${joinPoint.signature.name}()

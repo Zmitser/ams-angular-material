@@ -1,6 +1,6 @@
 package com.platform.ots.adminservice.filter
 
-import com.platform.ots.adminservice.constant.Constant
+import com.platform.ots.adminservice.constant.Constants
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
@@ -18,10 +18,10 @@ class CachingHttpHeaderFilter : WebFilter {
 
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
-        exchange.response.headers.setDate(Constant.LAST_MODIFIED, dateTime)
-        exchange.response.headers.setDate(Constant.EXPIRES, this.cacheTimeToLive + dateTime)
-        exchange.response.headers.set(Constant.PRAGMA, Constant.NO_CACHE)
-        exchange.response.headers.set(Constant.CACHE_CONTROL, "max-age=${this.cacheTimeToLive}, public")
+        exchange.response.headers.setDate(Constants.LAST_MODIFIED, dateTime)
+        exchange.response.headers.setDate(Constants.EXPIRES, this.cacheTimeToLive + dateTime)
+        exchange.response.headers.set(Constants.PRAGMA, Constants.NO_CACHE)
+        exchange.response.headers.set(Constants.CACHE_CONTROL, "max-age=${this.cacheTimeToLive}, public")
         return chain.filter(exchange)
     }
 }

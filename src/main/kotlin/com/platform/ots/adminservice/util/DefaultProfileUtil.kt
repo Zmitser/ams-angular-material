@@ -1,6 +1,6 @@
 package com.platform.ots.adminservice.util
 
-import com.platform.ots.adminservice.constant.Constant
+import com.platform.ots.adminservice.constant.Constants
 import org.springframework.boot.SpringApplication
 import org.springframework.core.env.Environment
 
@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment
 object DefaultProfileUtil {
 
     fun addDefaultProfile(app: SpringApplication): SpringApplication {
-        app.setDefaultProperties(mapOf(Constant.SPRING_DEFAULT_PROFILE to Constant.SPRING_PROFILE_DEVELOPMENT))
+        app.setDefaultProperties(mapOf(Constants.SPRING_DEFAULT_PROFILE to Constants.SPRING_PROFILE_DEVELOPMENT))
         return app
     }
 
