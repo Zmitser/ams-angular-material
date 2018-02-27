@@ -1,7 +1,7 @@
 package com.platform.ots.adminservice.domain
 
 import java.io.Serializable
-import java.time.LocalDateTime
+import java.time.Instant
 import javax.persistence.*
 import javax.persistence.GenerationType.IDENTITY
 import javax.validation.constraints.NotNull
@@ -16,7 +16,7 @@ data class PersistentAuditEvent(@Id
                                 @Column(name = "principal", nullable = false)
                                 var principal: String?,
                                 @Column(name = "audit_event_date")
-                                var auditEventDate: LocalDateTime,
+                                var auditEventDate: Instant,
                                 @Column(name = "audit_event_type")
                                 var auditEventType: String?,
                                 @ElementCollection
