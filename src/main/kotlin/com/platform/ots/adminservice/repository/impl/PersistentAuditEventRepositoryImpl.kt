@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.core.publisher.toFlux
 import reactor.core.publisher.toMono
-import java.time.LocalDateTime
+import java.time.Instant
 
 @Repository
 class PersistentAuditEventRepositoryImpl(val proxyPersistentAuditEventRepository: ProxyPersistentAuditEventRepository) : PersistentAuditEventRepository {
@@ -22,19 +22,19 @@ class PersistentAuditEventRepositoryImpl(val proxyPersistentAuditEventRepository
         return proxyPersistentAuditEventRepository.findById(id).orElse(null).toMono()
     }
 
-    override fun find(after: LocalDateTime): Flux<PersistentAuditEvent> {
+    override fun find(after: Instant): Flux<PersistentAuditEvent> {
         return proxyPersistentAuditEventRepository.find(after).toFlux()
     }
 
-    override fun find(principal: String, after: LocalDateTime): Flux<PersistentAuditEvent> {
+    override fun find(principal: String, after: Instant): Flux<PersistentAuditEvent> {
         return proxyPersistentAuditEventRepository.find(principal, after).toFlux()
     }
 
-    override fun find(principal: String, after: LocalDateTime, type: String): Flux<PersistentAuditEvent> {
+    override fun find(principal: String, after: Instant, type: String): Flux<PersistentAuditEvent> {
         return proxyPersistentAuditEventRepository.find(principal, after, type).toFlux()
     }
 
-    override fun find(fromDate: LocalDateTime, toDate: LocalDateTime, pageable: Pageable): Mono<Page<PersistentAuditEvent>> {
+    override fun find(fromDate: Instant, toDate: Instant, pageable: Pageable): Mono<Page<PersistentAuditEvent>> {
         return proxyPersistentAuditEventRepository.find(fromDate, toDate, pageable).toMono()
     }
 

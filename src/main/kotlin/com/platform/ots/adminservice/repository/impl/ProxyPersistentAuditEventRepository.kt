@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
-import java.time.LocalDateTime
+import java.time.Instant
 
 interface ProxyPersistentAuditEventRepository : JpaRepository<PersistentAuditEvent, Long> {
 
@@ -14,16 +14,16 @@ interface ProxyPersistentAuditEventRepository : JpaRepository<PersistentAuditEve
     fun find(@Param("principal") principal: String): List<PersistentAuditEvent>
 
     @Query("SELECT pae FROM PersistentAuditEvent pae WHERE pae.auditEventDate >:after")
-    fun find(@Param("after") after: LocalDateTime): List<PersistentAuditEvent>
+    fun find(@Param("after") after: Instant): List<PersistentAuditEvent>
 
     @Query("SELECT pae FROM PersistentAuditEvent pae WHERE pae.principal =:principal AND pae.auditEventDate >:after")
-    fun find(@Param("principal") principal: String, @Param("after") after: LocalDateTime): List<PersistentAuditEvent>
+    fun find(@Param("principal") principal: String, @Param("after") after: Instant): List<PersistentAuditEvent>
 
     @Query("SELECT pae FROM PersistentAuditEvent pae WHERE pae.principal =:principal AND pae.auditEventType=:type AND pae.auditEventDate >:after")
-    fun find(@Param("principal") principal: String, @Param("after") after: LocalDateTime, @Param("type") type: String): List<PersistentAuditEvent>
+    fun find(@Param("principal") principal: String, @Param("after") after: Instant, @Param("type") type: String): List<PersistentAuditEvent>
 
     @Query("SELECT pae FROM PersistentAuditEvent pae WHERE pae.auditEventDate BETWEEN :fromDate AND :toDate")
-    fun find(@Param("fromDate") fromDate: LocalDateTime, @Param("toDate") toDate: LocalDateTime, pageable: Pageable): Page<PersistentAuditEvent>
+    fun find(@Param("fromDate") fromDate: Instant, @Param("toDate") toDate: Instant, pageable: Pageable): Page<PersistentAuditEvent>
 
 
 }

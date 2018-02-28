@@ -1,20 +1,23 @@
 package com.platform.ots.adminservice.service
 
+import com.platform.ots.adminservice.service.vm.AuditEventsSmartTableVM
+import org.springframework.boot.actuate.audit.AuditEvent
 import org.springframework.data.domain.Sort
-import java.time.LocalDateTime
+import reactor.core.publisher.Mono
+import java.time.Instant
 
 interface AuditEventService {
 
-    fun find(sort: String, order: Sort.Direction, page: Int, limit: Int)
+    fun find(sort: String, order: Sort.Direction, page: Int, limit: Int): Mono<AuditEventsSmartTableVM>
 
     fun find(
             sort: String,
             order: Sort.Direction,
             page: Int,
             limit: Int,
-            fromDate: LocalDateTime,
-            toDate: LocalDateTime
-    )
+            fromDate: Instant,
+            toDate: Instant
+    ): Mono<AuditEventsSmartTableVM>
 
-    fun find(id: Long)
+    fun find(id: Long): Mono<AuditEvent>
 }

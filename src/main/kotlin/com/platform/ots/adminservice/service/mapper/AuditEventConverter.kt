@@ -17,7 +17,7 @@ class AuditEventConverter {
         return auditEvents
     }
 
-    private fun convertToAuditEvent(it: PersistentAuditEvent): AuditEvent? {
+    fun convertToAuditEvent(it: PersistentAuditEvent): AuditEvent? {
         checkNotNull(it) {
             return null
         }

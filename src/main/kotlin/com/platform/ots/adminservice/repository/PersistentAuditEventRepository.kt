@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.time.LocalDateTime
+import java.time.Instant
 
 interface PersistentAuditEventRepository {
 
@@ -15,11 +15,11 @@ interface PersistentAuditEventRepository {
 
     fun find(pageable: Pageable): Mono<Page<PersistentAuditEvent>>
 
-    fun find(after: LocalDateTime): Flux<PersistentAuditEvent>
+    fun find(after: Instant): Flux<PersistentAuditEvent>
 
-    fun find(principal: String, after: LocalDateTime): Flux<PersistentAuditEvent>
+    fun find(principal: String, after: Instant): Flux<PersistentAuditEvent>
 
-    fun find(principal: String, after: LocalDateTime, type: String): Flux<PersistentAuditEvent>
+    fun find(principal: String, after: Instant, type: String): Flux<PersistentAuditEvent>
 
-    fun find(fromDate: LocalDateTime, toDate: LocalDateTime, pageable: Pageable): Mono<Page<PersistentAuditEvent>>
+    fun find(fromDate: Instant, toDate: Instant, pageable: Pageable): Mono<Page<PersistentAuditEvent>>
 }
