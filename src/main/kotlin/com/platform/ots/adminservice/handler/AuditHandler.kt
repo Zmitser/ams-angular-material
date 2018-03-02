@@ -1,6 +1,6 @@
 package com.platform.ots.adminservice.handler
 
-import com.platform.ots.adminservice.service.AuditEventService
+import com.platform.ots.adminservice.web.service.AuditEventService
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest

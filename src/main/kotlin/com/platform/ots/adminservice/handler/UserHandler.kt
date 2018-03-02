@@ -1,7 +1,7 @@
 package com.platform.ots.adminservice.handler
 
-import com.platform.ots.adminservice.service.UserService
-import com.platform.ots.adminservice.service.dto.UserDto
+import com.platform.ots.adminservice.web.dto.UserDto
+import com.platform.ots.adminservice.web.service.UserService
 import mu.KotlinLogging
 import org.springframework.data.domain.Sort.Direction
 import org.springframework.data.domain.Sort.Direction.ASC

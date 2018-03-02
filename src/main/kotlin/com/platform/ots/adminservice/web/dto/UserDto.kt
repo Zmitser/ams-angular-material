@@ -1,4 +1,4 @@
-package com.platform.ots.adminservice.service.dto
+package com.platform.ots.adminservice.web.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty

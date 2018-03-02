@@ -2,4 +2,7 @@ spring:
   application:
     name: AMS
   profiles:
-    active: #spring.profiles.active#
+    active:
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false

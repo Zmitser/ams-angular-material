@@ -1,4 +1,4 @@
-package com.platform.ots.adminservice.service.vm
+package com.platform.ots.adminservice.web.vm
 
 import ch.qos.logback.classic.Logger
 import java.io.Serializable

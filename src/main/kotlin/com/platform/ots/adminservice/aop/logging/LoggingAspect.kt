@@ -20,7 +20,7 @@ class LoggingAspect(val environment: Environment) {
     @Pointcut("within(com.platform.ots.adminservice.handler..*) || " +
             "within(com.platform.ots.adminservice.router..*) || " +
             "within(com.platform.ots.adminservice.repository..*) " +
-            "within(com.platform.ots.adminservice.service..*)")
+            "within(com.platform.ots.adminservice.web.service..*)")
     fun applicationPackagePointCut() {
     }
 

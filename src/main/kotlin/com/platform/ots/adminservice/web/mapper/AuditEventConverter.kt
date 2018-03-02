@@ -1,4 +1,4 @@
-package com.platform.ots.adminservice.service.mapper
+package com.platform.ots.adminservice.web.mapper
 
 import com.platform.ots.adminservice.domain.PersistentAuditEvent
 import org.springframework.boot.actuate.audit.AuditEvent

@@ -1,10 +1,10 @@
-package com.platform.ots.adminservice.service.impl
+package com.platform.ots.adminservice.web.service.impl
 
 import com.platform.ots.adminservice.repository.UserRepository
-import com.platform.ots.adminservice.service.UserService
-import com.platform.ots.adminservice.service.dto.UserDto
-import com.platform.ots.adminservice.service.mapper.UserMapper
-import com.platform.ots.adminservice.service.vm.UsersSmartTableVM
+import com.platform.ots.adminservice.web.dto.UserDto
+import com.platform.ots.adminservice.web.mapper.UserMapper
+import com.platform.ots.adminservice.web.service.UserService
+import com.platform.ots.adminservice.web.vm.UsersSmartTableVM
 import mu.KotlinLogging
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort

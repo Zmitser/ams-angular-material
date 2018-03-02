@@ -1,7 +1,7 @@
-package com.platform.ots.adminservice.service
+package com.platform.ots.adminservice.web.service
 
-import com.platform.ots.adminservice.service.dto.UserDto
-import com.platform.ots.adminservice.service.vm.UsersSmartTableVM
+import com.platform.ots.adminservice.web.dto.UserDto
+import com.platform.ots.adminservice.web.vm.UsersSmartTableVM
 import org.springframework.data.domain.Sort
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono

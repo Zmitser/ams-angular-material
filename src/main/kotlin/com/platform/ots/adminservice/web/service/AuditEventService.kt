@@ -1,6 +1,6 @@
-package com.platform.ots.adminservice.service
+package com.platform.ots.adminservice.web.service
 
-import com.platform.ots.adminservice.service.vm.AuditEventsSmartTableVM
+import com.platform.ots.adminservice.web.vm.AuditEventsSmartTableVM
 import org.springframework.boot.actuate.audit.AuditEvent
 import org.springframework.data.domain.Sort
 import reactor.core.publisher.Mono

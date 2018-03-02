@@ -1,9 +1,9 @@
-package com.platform.ots.adminservice.service.impl
+package com.platform.ots.adminservice.web.service.impl
 
 import com.platform.ots.adminservice.repository.PersistentAuditEventRepository
-import com.platform.ots.adminservice.service.AuditEventService
-import com.platform.ots.adminservice.service.mapper.AuditEventConverter
-import com.platform.ots.adminservice.service.vm.AuditEventsSmartTableVM
+import com.platform.ots.adminservice.web.mapper.AuditEventConverter
+import com.platform.ots.adminservice.web.service.AuditEventService
+import com.platform.ots.adminservice.web.vm.AuditEventsSmartTableVM
 import org.springframework.boot.actuate.audit.AuditEvent
 import org.springframework.data.domain.PageRequest.of
 import org.springframework.data.domain.Sort
