@@ -14,9 +14,7 @@ class WeatherRouter(val weatherHandler: WeatherHandler) {
     @Bean
     fun weatherApis(): RouterFunction<ServerResponse> = router {
         (accept(MediaType.APPLICATION_JSON) and "/api/v1/weather").nest {
-            GET("/yahoo", weatherHandler::getYahooWeather)
-            GET("/openWeather", weatherHandler::getOpenMapWeather)
-            GET("/forecastIo", weatherHandler::getForecastIoWeather)
+            GET("", weatherHandler::getWeather)
         }
     }
 }

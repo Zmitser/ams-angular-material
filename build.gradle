@@ -50,6 +50,7 @@ repositories {
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/milestone" }
     maven { url "https://dl.bintray.com/xsavikx/openweathermap-java-api" }
+    maven { url  "https://dl.bintray.com/hotchemi/maven" }
 }
 configurations {
     provided
@@ -96,5 +97,6 @@ dependencies {
     compile 'org.openweathermap.java-api:api-core:1.0'
     compile group: 'tk.plogitech', name: 'darksky-forecast-api-jackson', version: '1.2.1'
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile 'com.github.hotchemi:khronos:0.9.0'
     testCompile('io.projectreactor:reactor-test')
 }
