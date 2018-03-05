@@ -9,6 +9,8 @@ import org.openweathermap.api.query.QueryBuilderPicker
 import org.openweathermap.api.query.UnitFormat.METRIC
 import org.openweathermap.api.query.forecast.daily.ByCityName
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime.ofInstant
+import java.time.ZoneOffset.UTC
 
 @Component
 class OpenWeatherStrategy(val urlConnectionWeatherClient: UrlConnectionWeatherClient) : WeatherStrategy {
@@ -20,10 +22,11 @@ class OpenWeatherStrategy(val urlConnectionWeatherClient: UrlConnectionWeatherCl
                 .unitFormat(METRIC)
                 .language(ENGLISH)
                 .build()
+
         val forecastInformation: ForecastInformation<DailyForecast> =
                 urlConnectionWeatherClient.getForecastInformation(build)
         return forecastInformation.forecasts.map {
-            WeatherDto(it.temperature.max.toInt(), it.temperature.min.toInt(), it.weather.first().description, it.dateTime.toInstant(), serviceName())
+            WeatherDto(it.temperature.max.toInt(), it.temperature.min.toInt(), it.weather.first().description, ofInstant(it.dateTime.toInstant(), UTC), serviceName())
         }
     }
 

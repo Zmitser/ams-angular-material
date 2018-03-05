@@ -14,6 +14,8 @@ import tk.plogitech.darksky.forecast.GeoCoordinates
 import tk.plogitech.darksky.forecast.model.Forecast
 import tk.plogitech.darksky.forecast.model.Latitude
 import tk.plogitech.darksky.forecast.model.Longitude
+import java.time.LocalDateTime.ofInstant
+import java.time.ZoneOffset.UTC
 
 
 @Component
@@ -28,7 +30,7 @@ class ForecastWeatherStrategy(val darkSkyClient: DarkSkyJacksonClient) : Weather
                 .build()
         val forecast: Forecast = darkSkyClient.forecast(request)
         return forecast.daily.data.map {
-            WeatherDto(it.temperatureMax.toInt(), it.temperatureMin.toInt(), it.summary, it.time, serviceName())
+            WeatherDto(it.temperatureMax.toInt(), it.temperatureMin.toInt(), it.summary, ofInstant(it.time, UTC), serviceName())
         }
 
     }

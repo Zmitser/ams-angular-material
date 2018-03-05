@@ -6,6 +6,8 @@ import com.github.fedy2.weather.data.Item
 import com.github.fedy2.weather.data.unit.DegreeUnit.CELSIUS
 import com.platform.ots.adminservice.web.dto.WeatherDto
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime.ofInstant
+import java.time.ZoneOffset.UTC
 
 @Component
 class YahooWeatherStrategy(val yahooWeatherService: YahooWeatherService) : WeatherStrategy {
@@ -16,7 +18,7 @@ class YahooWeatherStrategy(val yahooWeatherService: YahooWeatherService) : Weath
         val forecastForLocation: LimitDeclaration = yahooWeatherService.getForecastForLocation("Minsk", CELSIUS)
         val item: Item = forecastForLocation.first(1).first().item
         return item.forecasts.map {
-            WeatherDto(it.high, it.low, it.text, it.date.toInstant(), serviceName())
+            WeatherDto(it.high, it.low, it.text, ofInstant(it.date.toInstant(), UTC), serviceName())
         }
     }
 }

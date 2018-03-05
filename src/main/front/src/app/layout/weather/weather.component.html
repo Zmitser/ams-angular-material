@@ -1,8 +1,31 @@
 <div [@routerTransition]>
     <div *ngFor="let serviceName of weather$ | async | keys ">
-        <p>This weather supplier: {{serviceName.key}}</p>
-        <div *ngFor="let weather of serviceName.value ">
-            Temperature high: {{weather.high}}
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <p>This weather supplier: {{serviceName.key}}</p>
+                <div class="card">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">High</th>
+                            <th scope="col">Low</th>
+                            <th scope="col">Text</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Service Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let weather of serviceName.value ">
+                            <td>{{weather.high}}</td>
+                            <td>{{weather.low}}</td>
+                            <td>{{weather.text}}</td>
+                            <td>{{weather.date}}</td>
+                            <td>{{weather.weatherServiceName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
