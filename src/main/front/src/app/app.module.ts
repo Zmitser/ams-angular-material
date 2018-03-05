@@ -21,6 +21,8 @@ import {CustomSerializer} from "./store/custom-serializer";
 import {RouterServiceEffects} from "./store/effects/router-service-effects";
 import {ToastModule, ToastOptions} from "ng2-toastr";
 import {HttpModule} from "@angular/http";
+import {WeatherService} from "./layout/weather/weather.service";
+import {WeatherServiceEffects} from "./store/effects/weather-service-effects";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,6 +55,7 @@ export class CustomOption extends ToastOptions {
         }),
         EffectsModule.forRoot([
             UserServiceEffects,
+            WeatherServiceEffects,
             RouterServiceEffects
         ]),
         StoreRouterConnectingModule.forRoot({
@@ -62,10 +65,16 @@ export class CustomOption extends ToastOptions {
         HttpModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, UserService, {
-        provide: RouterStateSerializer,
-        useClass: CustomSerializer
-    }, {provide: ToastOptions, useClass: CustomOption},],
+    providers: [AuthGuard, UserService, WeatherService,
+        {
+            provide: RouterStateSerializer,
+            useClass: CustomSerializer
+        },
+        {
+            provide: ToastOptions,
+            useClass: CustomOption
+        },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

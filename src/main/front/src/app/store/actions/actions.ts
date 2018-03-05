@@ -2,6 +2,7 @@ import {Action} from "@ngrx/store";
 import {User} from "../../shared/models/user";
 import {NavigationExtras} from "@angular/router";
 import {ServerDataSource} from "ng2-smart-table";
+import {Weather} from "../../shared/models/weather";
 
 export const LOAD_USERS_ACTION = 'LOAD_USERS_ACTION';
 export const LOAD_USERS_ACTION_SUCCESS = "LOAD_USERS_ACTION_SUCCESS";
@@ -17,6 +18,8 @@ export const UPDATE_USER_ACTION = "UPDATE_USER_ACTION";
 export const UPDATE_USER_ACTION_SUCCESS = "UPDATE_USER_ACTION_SUCCESS";
 export const GET_EMPTY_USER_ACTION = "GET_EMPTY_USER_ACTION";
 export const GET_EMPTY_USER_ACTION_SUCCESS = "GET_EMPTY_USER_ACTION_SUCCESS";
+export const LOAD_WEATHER_ACTION = "LOAD_WEATHER_ACTION";
+export const LOAD_WEATHER_ACTION_SUCCESS = "LOAD_WEATHER_ACTION_SUCCESS";
 
 export const GO = '[Router] Go';
 export const BACK = '[Router] Back';
@@ -132,6 +135,23 @@ export class CreateUsersDataSourceActionSuccess implements ActionWithPayload<Ser
     }
 }
 
+export class LoadWeatherAction implements Action {
+    readonly type: string = LOAD_WEATHER_ACTION;
+
+    constructor() {
+    }
+}
+
+
+export class LoadWeatherActionSuccess implements ActionWithPayload<Map<string, Weather[]>> {
+
+    type: string = LOAD_WEATHER_ACTION_SUCCESS;
+
+    constructor(public payload: Map<string, Weather[]>) {
+
+    }
+
+}
 
 export class Go implements Action {
     readonly type = GO;

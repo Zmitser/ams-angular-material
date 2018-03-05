@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {WeatherComponent} from "./weather.component";
 import {WeatherRoutingModule} from "./weather-routing.module";
+import {KeysPipe} from "../../shared/pipes/key.pipe";
 
 @NgModule({
     imports: [
@@ -10,7 +11,8 @@ import {WeatherRoutingModule} from "./weather-routing.module";
 
     ],
     declarations: [
-        WeatherComponent
+        WeatherComponent,
+        KeysPipe
     ]
 })
 export class WeatherModule {
