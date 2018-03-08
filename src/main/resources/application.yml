@@ -6,3 +6,9 @@ spring:
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+forecast-io:
+  api:
+    key: a78c9e6952fbb80168611297fed8bc3c
+open-weather:
+  api:
+    key: 1d82742ee19d794f79341fab6dac7b50

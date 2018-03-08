@@ -1,29 +1,12 @@
 <div [@routerTransition]>
     <div *ngFor="let serviceName of weather$ | async | keys ">
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <p>This weather supplier: {{serviceName.key}}</p>
-                <div class="card">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">High</th>
-                            <th scope="col">Low</th>
-                            <th scope="col">Text</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Service Name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let weather of serviceName.value ">
-                            <td>{{weather.high}}</td>
-                            <td>{{weather.low}}</td>
-                            <td>{{weather.text}}</td>
-                            <td>{{weather.date}}</td>
-                            <td>{{weather.weatherServiceName}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+        <h2>{{serviceName.key}}</h2>
+        <div>
+            <div class="card mb-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ng2-smart-table [settings]="options" [source]="serviceName.value"></ng2-smart-table>
+                    </div>
                 </div>
             </div>
         </div>

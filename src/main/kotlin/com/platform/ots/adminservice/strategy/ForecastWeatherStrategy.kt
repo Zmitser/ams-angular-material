@@ -1,6 +1,7 @@
 package com.platform.ots.adminservice.strategy
 
 import com.platform.ots.adminservice.web.dto.WeatherDto
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import tk.plogitech.darksky.api.jackson.DarkSkyJacksonClient
 import tk.plogitech.darksky.forecast.APIKey
@@ -19,10 +20,11 @@ import java.time.ZoneOffset.UTC
 
 
 @Component
-class ForecastWeatherStrategy(val darkSkyClient: DarkSkyJacksonClient) : WeatherStrategy {
+class ForecastWeatherStrategy(val darkSkyClient: DarkSkyJacksonClient,
+                              @Value("\${forecast-io.api.key}") val apiKey: String) : WeatherStrategy {
     override fun forecast(): List<WeatherDto> {
         val request: ForecastRequest = ForecastRequestBuilder()
-                .key(APIKey("a78c9e6952fbb80168611297fed8bc3c"))
+                .key(APIKey(apiKey))
                 .language(en)
                 .units(si)
                 .exclude(minutely, hourly)
@@ -30,7 +32,13 @@ class ForecastWeatherStrategy(val darkSkyClient: DarkSkyJacksonClient) : Weather
                 .build()
         val forecast: Forecast = darkSkyClient.forecast(request)
         return forecast.daily.data.map {
-            WeatherDto(it.temperatureMax.toInt(), it.temperatureMin.toInt(), it.summary, ofInstant(it.time, UTC), serviceName())
+            WeatherDto(
+                    it.temperatureMax.toInt(),
+                    it.temperatureMin.toInt(),
+                    it.summary,
+                    ofInstant(it.time, UTC),
+                    serviceName()
+            )
         }
 
     }
