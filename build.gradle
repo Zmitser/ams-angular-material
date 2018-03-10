@@ -67,6 +67,7 @@ sourceSets {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-webflux")
+    compile("org.springframework.boot:spring-boot-starter-cache")
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: 'spring-boot-starter-tomcat'
     }
@@ -89,6 +90,10 @@ dependencies {
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
     compile("com.fasterxml.jackson.module:jackson-module-afterburner")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
+    compile("org.hibernate:hibernate-envers")
+    compile("com.hazelcast:hazelcast")
+    compile("com.hazelcast:hazelcast-hibernate52")
+    compile("com.hazelcast:hazelcast-spring")
     compile("org.zalando:problem-spring-web:0.22.2")
     compile("p6spy:p6spy:3.0.0")
     kapt("org.mapstruct:mapstruct-processor:1.2.0.Final")

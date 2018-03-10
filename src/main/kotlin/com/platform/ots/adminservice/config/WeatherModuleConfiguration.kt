@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 import tk.plogitech.darksky.api.jackson.DarkSkyJacksonClient
 
 @Configuration
-class WeatherConfig(@Value("\${open-weather.api.key}") val apiKey: String) {
+class WeatherModuleConfiguration(@Value("\${open-weather.api.key}") val apiKey: String) {
 
     @Bean
     fun yahooWeatherService(): YahooWeatherService = YahooWeatherService()

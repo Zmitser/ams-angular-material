@@ -1,5 +1,7 @@
 package com.platform.ots.adminservice.domain
 
+import org.hibernate.annotations.Cache
+import org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.persistence.GenerationType.IDENTITY
@@ -9,6 +11,7 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "user")
+@Cache(usage = NONSTRICT_READ_WRITE)
 data class User(
         @Id
         @GeneratedValue(strategy = IDENTITY)
@@ -35,6 +38,6 @@ data class User(
         @Column(name = "password", length = 60)
         var password: String?,
         @Column(name = "create_date")
-        var createDate: LocalDateTime?) {
+        var createDate: LocalDateTime?) : AbstractAuditingEntity() {
     constructor() : this(null, null, null, null, null, null, null)
 }
