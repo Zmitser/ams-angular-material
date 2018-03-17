@@ -19,4 +19,10 @@ interface UserRepository {
     fun delete(id: Long): Mono<Long>
 
     fun findOne(id: Long): Mono<User>
+
+    fun findOneByEmail(email: String?): Mono<User>
+
+    fun findOneByUsername(username: String?): Mono<User>
+
+    fun findOneByUsernameOrEmail(usernameOrEmail: String?): Mono<User>
 }

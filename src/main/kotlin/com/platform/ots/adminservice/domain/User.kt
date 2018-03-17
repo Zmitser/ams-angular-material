@@ -38,6 +38,16 @@ data class User(
         @Column(name = "password", length = 60)
         var password: String?,
         @Column(name = "create_date")
-        var createDate: LocalDateTime?) : AbstractAuditingEntity() {
+        var createDate: LocalDateTime?,
+        @NotNull
+        @Column(name = "activated", nullable = false)
+        var isActivated: Boolean = true,
+        @ManyToMany
+        @JoinTable(
+                name = "user_authority",
+                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+                inverseJoinColumns = [JoinColumn(name = "authority_name", referencedColumnName = "name")]
+        )
+        var authorities: Set<Authority> = emptySet()) : AbstractAuditingEntity() {
     constructor() : this(null, null, null, null, null, null, null)
 }

@@ -14,6 +14,12 @@ import reactor.core.publisher.toMono
 
 @Repository
 class UserRepositoryImpl(val proxyUserRepository: ProxyUserRepository) : UserRepository {
+
+    override fun findOneByUsernameOrEmail(usernameOrEmail: String?): Mono<User> {
+        return proxyUserRepository.findOneByUsernameOrEmail(usernameOrEmail).toMono()
+    }
+
+
     private val log = KotlinLogging.logger {}
 
     override fun findAll(pageable: Pageable): Mono<Page<User>> {
@@ -32,5 +38,14 @@ class UserRepositoryImpl(val proxyUserRepository: ProxyUserRepository) : UserRep
     override fun deleteAll(): Mono<Unit> = proxyUserRepository.deleteAll().toMono()
 
     override fun findAll(): Flux<User> = proxyUserRepository.findAll().toFlux()
+
+
+    override fun findOneByUsername(username: String?): Mono<User> {
+        return proxyUserRepository.findOneByUsername(username).toMono()
+    }
+
+    override fun findOneByEmail(email: String?): Mono<User> {
+        return proxyUserRepository.findOneByEmail(email).toMono()
+    }
 
 }
