@@ -4,19 +4,18 @@ import com.platform.ots.adminservice.repository.UserRepository
 import mu.KLogger
 import mu.KotlinLogging
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.stereotype.Service
+import reactor.core.publisher.Mono
 import java.util.Locale.ENGLISH
 
-@Service("domainUserDetailsService")
-class DomainUserDetailsService(val userRepository: UserRepository) : UserDetailsService {
+//@Service("domainUserDetailsService")
+class DomainUserDetailsService(val userRepository: UserRepository) : ReactiveUserDetailsService {
 
-    val log: KLogger = KotlinLogging.logger { }
 
-    override fun loadUserByUsername(username: String?): UserDetails? {
+    override fun findByUsername(username: String?): Mono<UserDetails> {
         log.debug { "Authenticating $username" }
         val lowerCaseLogin: String? = username?.toLowerCase(ENGLISH)
 
@@ -25,8 +24,12 @@ class DomainUserDetailsService(val userRepository: UserRepository) : UserDetails
                 throw UsernameNotFoundException("User $lowerCaseLogin was not found in the database")
             }
             createSecurityUser(lowerCaseLogin, it)
-        }.block()
+        }
     }
+
+    val log: KLogger = KotlinLogging.logger { }
+
+
 
 
     private fun createSecurityUser(lowerCaseLogin: String?, user: com.platform.ots.adminservice.domain.User): User {
