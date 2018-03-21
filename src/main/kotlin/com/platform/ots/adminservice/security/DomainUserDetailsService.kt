@@ -8,12 +8,14 @@ import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import java.util.Locale.ENGLISH
 
-//@Service("domainUserDetailsService")
+@Service("domainUserDetailsService")
 class DomainUserDetailsService(val userRepository: UserRepository) : ReactiveUserDetailsService {
 
+    val log: KLogger = KotlinLogging.logger { }
 
     override fun findByUsername(username: String?): Mono<UserDetails> {
         log.debug { "Authenticating $username" }
@@ -26,10 +28,6 @@ class DomainUserDetailsService(val userRepository: UserRepository) : ReactiveUse
             createSecurityUser(lowerCaseLogin, it)
         }
     }
-
-    val log: KLogger = KotlinLogging.logger { }
-
-
 
 
     private fun createSecurityUser(lowerCaseLogin: String?, user: com.platform.ots.adminservice.domain.User): User {
