@@ -20,8 +20,8 @@ interface ProxyUserRepository : JpaRepository<User, Long> {
     @Cacheable(cacheNames = ["usersByUsernameCache"])
     fun findOneByUsername(@Param("username") username: String?): User
 
-    @Query("SELECT u FROM User u WHERE u.userName=:username OR u.email=:email")
+    @Query("SELECT u FROM User u WHERE u.userName=:username OR u.email=:username")
     @EntityGraph(attributePaths = ["authorities"])
     @Cacheable(cacheNames = ["usersByUsernameCache"])
-    fun findOneByUsernameOrEmail(@Param("username") username: String?): User
+    fun findOneByUsernameOrEmail(@Param("username") username: String?): User?
 }

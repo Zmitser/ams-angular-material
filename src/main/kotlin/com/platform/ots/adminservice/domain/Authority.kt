@@ -21,5 +21,7 @@ data class Authority(
         @Size(max = 50)
         @Id
         @Column(name = "name", length = 50)
-        var name: String
-) : Serializable
+        var name: String?
+) : Serializable {
+    constructor() : this(null)
+}

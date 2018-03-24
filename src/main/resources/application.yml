@@ -12,3 +12,15 @@ forecast-io:
 open-weather:
   api:
     key: 1d82742ee19d794f79341fab6dac7b50
+jwt:
+  secret:
+    key: code-monkey
+  token:
+    expiration:
+      seconds:
+        without-remember-me: 86400
+        with-remember-me: 2592000
+    header: Authorization
+    param: access_token
+    prefix: Bearer
+

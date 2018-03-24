@@ -48,6 +48,6 @@ data class User(
                 joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "authority_name", referencedColumnName = "name")]
         )
-        var authorities: Set<Authority> = emptySet()) : AbstractAuditingEntity() {
+        var authorities: MutableSet<Authority> = mutableSetOf()) : AbstractAuditingEntity() {
     constructor() : this(null, null, null, null, null, null, null)
 }

@@ -8,15 +8,17 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.core.publisher.Mono.justOrEmpty
 import reactor.core.publisher.toFlux
 import reactor.core.publisher.toMono
 
 
 @Repository
 class UserRepositoryImpl(val proxyUserRepository: ProxyUserRepository) : UserRepository {
+    override fun saveAll(users: List<User>): Flux<User> = proxyUserRepository.saveAll(users).toFlux()
 
     override fun findOneByUsernameOrEmail(usernameOrEmail: String?): Mono<User> {
-        return proxyUserRepository.findOneByUsernameOrEmail(usernameOrEmail).toMono()
+        return justOrEmpty(proxyUserRepository.findOneByUsernameOrEmail(usernameOrEmail))
     }
 
 

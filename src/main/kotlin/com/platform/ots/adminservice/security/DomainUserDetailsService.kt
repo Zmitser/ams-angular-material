@@ -20,13 +20,9 @@ class DomainUserDetailsService(val userRepository: UserRepository) : ReactiveUse
     override fun findByUsername(username: String?): Mono<UserDetails> {
         log.debug { "Authenticating $username" }
         val lowerCaseLogin: String? = username?.toLowerCase(ENGLISH)
-
-        return userRepository.findOneByEmail(lowerCaseLogin).map {
-            checkNotNull(it) {
-                throw UsernameNotFoundException("User $lowerCaseLogin was not found in the database")
-            }
-            createSecurityUser(lowerCaseLogin, it)
-        }
+        return userRepository.findOneByUsernameOrEmail(lowerCaseLogin)
+                .switchIfEmpty(Mono.error(UsernameNotFoundException("User $lowerCaseLogin was not found in the database")))
+                .map { createSecurityUser(lowerCaseLogin, it) }
     }
 
 

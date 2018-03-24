@@ -23,6 +23,7 @@ object Constants {
     const val PROPS_METRIC_REG_JVM_BUFFERS: String = "jvm.buffers"
     const val PROPS_METRIC_REG_JVM_ATTRIBUTES: String = "jvm.attributes"
     const val SYSTEM_ACCOUNT: String = "system"
+    const val AUTHORITIES_KEY: String = "auth"
 
 
 }
