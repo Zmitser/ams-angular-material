@@ -2,8 +2,8 @@ package com.platform.ots.adminservice.web.service.impl
 
 import com.platform.ots.adminservice.repository.PersistentAuditEventRepository
 import com.platform.ots.adminservice.web.mapper.AuditEventConverter
+import com.platform.ots.adminservice.web.response.AuditEventsSmartTableResponse
 import com.platform.ots.adminservice.web.service.AuditEventService
-import com.platform.ots.adminservice.web.vm.AuditEventsSmartTableVM
 import org.springframework.boot.actuate.audit.AuditEvent
 import org.springframework.data.domain.PageRequest.of
 import org.springframework.data.domain.Sort
@@ -24,7 +24,7 @@ class AuditEventServiceImpl(val persistentAuditEventRepository: PersistentAuditE
             limit: Int,
             fromDate: Instant,
             toDate: Instant
-    ): Mono<AuditEventsSmartTableVM> {
+    ): Mono<AuditEventsSmartTableResponse> {
         return persistentAuditEventRepository.find(fromDate, toDate, of(page, limit, Sort.by(order, sort)))
                 .map {
                     it.map {
@@ -32,7 +32,7 @@ class AuditEventServiceImpl(val persistentAuditEventRepository: PersistentAuditE
                     }
                 }
                 .map {
-                    AuditEventsSmartTableVM(it.content, it.totalElements)
+                    AuditEventsSmartTableResponse(it.content, it.totalElements)
                 }
 
 
@@ -48,7 +48,7 @@ class AuditEventServiceImpl(val persistentAuditEventRepository: PersistentAuditE
             order: Direction,
             page: Int,
             limit: Int
-    ): Mono<AuditEventsSmartTableVM> {
+    ): Mono<AuditEventsSmartTableResponse> {
         return persistentAuditEventRepository.find(of(page, limit, Sort.by(order, sort)))
                 .map {
                     it.map {
@@ -56,7 +56,7 @@ class AuditEventServiceImpl(val persistentAuditEventRepository: PersistentAuditE
                     }
                 }
                 .map {
-                    AuditEventsSmartTableVM(it.content, it.totalElements)
+                    AuditEventsSmartTableResponse(it.content, it.totalElements)
                 }
 
     }

@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed
 import com.platform.ots.adminservice.web.dto.UserDto
 import com.platform.ots.adminservice.web.service.UserService
 import mu.KotlinLogging
+import org.apache.commons.lang3.math.NumberUtils.INTEGER_ONE
+import org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO
 import org.springframework.data.domain.Sort.Direction
 import org.springframework.data.domain.Sort.Direction.ASC
 import org.springframework.data.domain.Sort.Direction.valueOf
@@ -28,7 +30,7 @@ class UserHandler(val userService: UserService) {
     fun findAllPage(request: ServerRequest): Mono<ServerResponse> {
         val sort: String = request.queryParam("_sort").orElse("id")
         val order: Direction = request.queryParam("_order").map { valueOf(it) }.orElse(ASC)
-        val page: Int = request.queryParam("_page").map { it.toInt().minus(1) }.orElse(0)
+        val page: Int = request.queryParam("_page").map { it.toInt().minus(INTEGER_ONE) }.orElse(INTEGER_ZERO)
         val limit = request.queryParam("_limit").map { it.toInt() }.orElse(5)
         return ok().body(userService.findAll(sort, order, page, limit))
     }

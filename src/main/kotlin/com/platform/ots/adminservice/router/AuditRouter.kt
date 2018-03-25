@@ -19,4 +19,6 @@ class AuditRouter(val auditHandler: AuditHandler) {
             GET("/slice", auditHandler::findAllBetweenDates)
         }
     }
+
+
 }

@@ -7,12 +7,14 @@ import com.platform.ots.adminservice.repository.UserRepository
 import io.github.benas.randombeans.api.EnhancedRandom.random
 import mu.KotlinLogging
 import org.springframework.boot.CommandLineRunner
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime.now
 
 @Component
 class BootstrapCLR(val userRepository: UserRepository,
-                   val authorityRepository: AuthorityRepository) : CommandLineRunner {
+                   val authorityRepository: AuthorityRepository,
+                   val passwordEncoder: PasswordEncoder) : CommandLineRunner {
 
     val log = KotlinLogging.logger { }
 
@@ -45,7 +47,7 @@ class BootstrapCLR(val userRepository: UserRepository,
                                                 "Koskinen",
                                                 "zmitser",
                                                 "gagat@tut.by",
-                                                "\$2a\$10\$dB0EOlaVyTF8Gd7nc4NOmOU3.mhIK7M09JZoOXzBWwZMXhQ5Ep.Jm",
+                                                passwordEncoder.encode("password"),
                                                 now(),
                                                 true,
                                                 mutableSetOf(Authority("ROLE_USER"))
@@ -56,7 +58,7 @@ class BootstrapCLR(val userRepository: UserRepository,
                                                 "Lisitsin",
                                                 "admin",
                                                 "drwoland@tut.by",
-                                                "\$2a\$10\$dB0EOlaVyTF8Gd7nc4NOmOU3.mhIK7M09JZoOXzBWwZMXhQ5Ep.Jm",
+                                                passwordEncoder.encode("password"),
                                                 now(),
                                                 true,
                                                 mutableSetOf(Authority("ROLE_USER"), Authority("ROLE_ADMIN"))

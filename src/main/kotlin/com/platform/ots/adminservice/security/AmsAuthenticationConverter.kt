@@ -2,9 +2,7 @@ package com.platform.ots.adminservice.security
 
 
 import org.apache.commons.collections4.MapUtils.isNotEmpty
-import org.apache.commons.lang3.StringUtils
-import org.apache.commons.lang3.StringUtils.isEmpty
-import org.apache.commons.lang3.StringUtils.startsWith
+import org.apache.commons.lang3.StringUtils.*
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
@@ -33,20 +31,20 @@ class AmsAuthenticationConverter(private val amsTokenProvider: AmsTokenProvider,
         val queryParams: MultiValueMap<String, String> = request.queryParams
         if (isEmpty(authToken) && isNotEmpty(queryParams)) {
             val authTokenParam: String? = queryParams.getFirst(param)
-            if (StringUtils.isNotEmpty(authTokenParam)) {
+            if (isNotEmpty(authTokenParam)) {
                 authToken = authTokenParam
             }
         }
         var username: String? = null
-        if (StringUtils.isNotEmpty(authToken)) {
+        if (isNotEmpty(authToken)) {
             username = amsTokenProvider.getUsernameFromToken(authToken)
         }
-        if (StringUtils.isNotEmpty(username) && SecurityContextHolder.getContext().authentication == null) {
+        if (isNotEmpty(username) && SecurityContextHolder.getContext().authentication == null) {
             if (amsTokenProvider.validateToken(authToken)) {
                 return this.userDetailsService.findByUsername(username)
                         .publishOn(Schedulers.parallel())
                         .switchIfEmpty(Mono.error(BadCredentialsException("Invalid Credentials")))
-                        .map { AmsWebAuthenticationToken("fd", it.username, it.authorities.toList()) }
+                        .map { AmsWebAuthenticationToken(authToken, it.username, it.password, it.authorities.toList()) }
             }
         }
         return Mono.empty()

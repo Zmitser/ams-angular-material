@@ -1,10 +1,7 @@
 package com.platform.ots.adminservice.config
 
 import com.platform.ots.adminservice.filter.CorsFilter
-import com.platform.ots.adminservice.security.AmsAjaxAuthenticationFailureHandler
-import com.platform.ots.adminservice.security.AmsAjaxAuthenticationSuccessHandler
-import com.platform.ots.adminservice.security.AmsAuthenticationConverter
-import com.platform.ots.adminservice.security.AmsAuthenticationManager
+import com.platform.ots.adminservice.security.*
 import org.springframework.beans.factory.BeanInitializationException
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,7 +11,6 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder.AUTHENTICATION
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter
@@ -34,7 +30,7 @@ class SecurityModuleConfiguration(val corsFilter: CorsFilter,
 
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = CustomPasswordEncoder()
 
     @Bean
     fun authenticationManager(passwordEncoder: PasswordEncoder) = AmsAuthenticationManager(passwordEncoder, userDetailsService)
@@ -78,6 +74,7 @@ class SecurityModuleConfiguration(val corsFilter: CorsFilter,
                                    serverSecurityContextRepository: ServerSecurityContextRepository): AuthenticationWebFilter {
         try {
             val apiAuthenticationWebFilter = AuthenticationWebFilter(authenticationManager)
+            apiAuthenticationWebFilter.setAuthenticationFailureHandler(amsAjaxAuthenticationFailureHandler())
             apiAuthenticationWebFilter.setRequiresAuthenticationMatcher(PathPatternParserServerWebExchangeMatcher("/api/**"))
             apiAuthenticationWebFilter.setSecurityContextRepository(serverSecurityContextRepository)
             apiAuthenticationWebFilter.setAuthenticationConverter(amsAuthenticationConverter)

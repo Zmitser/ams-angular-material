@@ -3,23 +3,31 @@ package com.platform.ots.adminservice.web.service.impl
 import com.platform.ots.adminservice.repository.UserRepository
 import com.platform.ots.adminservice.web.dto.UserDto
 import com.platform.ots.adminservice.web.mapper.UserMapper
+import com.platform.ots.adminservice.web.response.UsersSmartTableResponse
 import com.platform.ots.adminservice.web.service.UserService
-import com.platform.ots.adminservice.web.vm.UsersSmartTableVM
 import mu.KotlinLogging
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
 class UserServiceImpl(val userRepository: UserRepository, val userMapper: UserMapper) : UserService {
+
+    override fun findOneByUsernameOrEmail(usernameOrEmail: String?): Mono<UserDto> {
+        return userRepository.findOneByUsernameOrEmail(usernameOrEmail)
+                .switchIfEmpty(Mono.error(UsernameNotFoundException("User not found")))
+                .map { userMapper.userToUserDto(it) }
+    }
+
     private val log = KotlinLogging.logger {}
 
-    override fun findAll(sort: String, order: Sort.Direction, page: Int, limit: Int): Mono<UsersSmartTableVM> {
+    override fun findAll(sort: String, order: Sort.Direction, page: Int, limit: Int): Mono<UsersSmartTableResponse> {
         val pageable: PageRequest = PageRequest.of(page, limit, Sort.by(order, sort))
         return userRepository.findAll(pageable).map {
-            UsersSmartTableVM(it.content.map { userMapper.userToUserDto(it) }, it.totalElements)
+            UsersSmartTableResponse(it.content.map { userMapper.userToUserDto(it) }, it.totalElements)
         }
     }
 

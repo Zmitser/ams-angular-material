@@ -2,6 +2,7 @@ package com.platform.ots.adminservice.security
 
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.ReactiveAuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -16,10 +17,9 @@ class AmsAuthenticationManager(private var passwordEncoder: PasswordEncoder,
     override fun authenticate(authentication: Authentication): Mono<Authentication>? {
         return authentication.toMono()
                 .filter { it is AmsWebAuthenticationToken }
+                .flatMap { userDetailsService.findByUsername(it.principal.toString()) }
                 .switchIfEmpty(error(BadCredentialsException("Bad credentials")))
-                .map {
-                    it.isAuthenticated = true
-                    it
-                }
+                .filter { passwordEncoder.matches(authentication.credentials.toString(), it.password) }
+                .map { UsernamePasswordAuthenticationToken(it.username, it.password, it.authorities) }
     }
 }
