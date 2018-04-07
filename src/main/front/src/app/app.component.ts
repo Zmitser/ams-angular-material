@@ -1,17 +1,17 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {ToastsManager} from "ng2-toastr";
+import {Component} from '@angular/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+
+
 })
-export class AppComponent implements OnInit {
-    constructor(private _toastsManager: ToastsManager, private _viewContainerRef: ViewContainerRef) {
-        this._toastsManager.setRootViewContainerRef(_viewContainerRef);
+export class AppComponent {
+  title = 'app';
 
-    }
+  getRouteAnimation(outlet) {
 
-    ngOnInit() {
-    }
+    return outlet.activatedRouteData.animation
+  }
 }
